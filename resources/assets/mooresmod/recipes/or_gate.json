@@ -1,0 +1,24 @@
+{
+"type": "minecraft:crafting_shaped",
+
+"pattern":
+[
+" R ",
+"RRR",
+"R R"
+],
+
+"key":
+{
+"R":
+{
+"item": "minecraft:redstone"
+}
+},
+
+"result":
+{
+"item": "mooresmod:or_gate",
+"count": 1
+}
+}

@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {}
+    ],
+    "facing": {
+      "north": { "model": "mooresmod:and_gate" },
+      "south": { "model": "mooresmod:and_gate",
+        "y": 180
+      },
+      "west": { "model": "mooresmod:and_gate",
+        "y": 270
+      },
+      "east": { "model": "mooresmod:and_gate",
+        "y": 90
+      }
+    }
+  }
+}

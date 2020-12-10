@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shapeless",
+
+    "ingredients":
+    [
+
+    {
+      "item": "mooresmod:and_gate"
+    },
+
+    {
+      "item": "mooresmod:not_gate"
+    }
+
+    ],
+
+    "result":
+    {
+        "item": "mooresmod:nand_gate",
+        "count": 1
+    }
+}

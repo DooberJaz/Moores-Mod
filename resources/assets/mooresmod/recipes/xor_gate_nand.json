@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+
+  "pattern":
+  [
+    "RA ",
+    "RAA",
+    "RA "
+  ],
+
+  "key":
+  {
+    "R":
+    {
+      "item": "minecraft:redstone"
+    },
+
+    "A":
+    {
+      "item": "mooresmod:nand_gate"
+    }
+  },
+
+  "result":
+  {
+    "item": "mooresmod:xor_gate",
+    "count": 1
+  }
+}

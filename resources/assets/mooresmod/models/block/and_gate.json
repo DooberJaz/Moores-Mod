@@ -1,0 +1,11 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "north": "mooresmod:blocks/out_side",
+    "west": "mooresmod:blocks/in_side",
+    "east": "mooresmod:blocks/in_side",
+    "south": "mooresmod:blocks/and_gate",
+    "down": "mooresmod:blocks/and_gate",
+    "up": "mooresmod:blocks/and_gate"
+  }
+}

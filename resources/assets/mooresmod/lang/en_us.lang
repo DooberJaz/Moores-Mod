@@ -1,0 +1,6 @@
+item.and_gate.name=AND Gate
+item.not_gate.name=NOT Gate
+item.or_gate.name=OR Gate
+item.nand_gate.name=NAND Gate
+item.nor_gate.name=NOR Gate
+item.xor_gate.name=XOR Gate

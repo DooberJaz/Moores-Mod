@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "normal": { "model": "mooresmod:nor_gate" },
+    "facing=NORTH": { "model": "mooresmod:nor_gate" },
+    "facing=SOUTH": { "model": "mooresmod:nor_gate", "y": 180},
+    "facing=EAST": { "model": "mooresmod:nor_gate", "y": 90},
+    "facing=WEST": { "model": "mooresmod:nor_gate", "y": 270 }
+  }
+}

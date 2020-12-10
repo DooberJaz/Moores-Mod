@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "normal": { "model": "mooresmod:xor_gate" },
+
+    "facing": {
+      "north": { "model": "mooresmod:xor_gate" },
+      "south": { "model": "mooresmod:xor_gate",
+        "y": 180
+      },
+      "west": { "model": "mooresmod:xor_gate",
+        "y": 270
+      },
+      "east": { "model": "mooresmod:xor_gate",
+        "y": 90
+      }
+    }
+  }
+}

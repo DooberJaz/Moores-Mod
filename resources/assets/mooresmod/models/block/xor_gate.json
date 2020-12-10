@@ -1,0 +1,6 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "all": "mooresmod:blocks/xor_gate"
+  }
+}

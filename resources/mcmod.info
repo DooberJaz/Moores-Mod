@@ -1,0 +1,16 @@
+[
+{
+  "modid": "mooresmod",
+  "name": "Moores Mod",
+  "description": "A mod that allows compact, accurate processors to be created from the logic gate level",
+  "version": "0.2",
+  "mcversion": "1.12.2,
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["DooberJaz"],
+  "credits": "My project advisor",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+
+  "pattern":
+  [
+    " T ",
+    " R ",
+    " T "
+  ],
+
+  "key":
+  {
+    "R":
+    {
+      "item": "mooresmod:or_gate"
+    },
+    "T": {
+      "item": "mooresmod:not_gate"
+    }
+  },
+
+  "result":
+  {
+    "item": "mooresmod:and_gate",
+    "count": 1
+  }
+}
