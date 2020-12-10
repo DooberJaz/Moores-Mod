@@ -1,9 +1,13 @@
 {
   "variants": {
     "normal": { "model": "mooresmod:or_gate" },
-    "facing=NORTH": { "model": "mooresmod:or_gate" },
-    "facing=SOUTH": { "model": "mooresmod:or_gate", "y": 180},
-    "facing=EAST": { "model": "mooresmod:or_gate", "y": 90},
-    "facing=WEST": { "model": "mooresmod:or_gate", "y": 270 }
+    "facing=south,powered=false": { "model": "mooresmod:or_gate" },
+    "facing=north,powered=false": { "model": "mooresmod:or_gate", "y": 180},
+    "facing=east,powered=false": { "model": "mooresmod:or_gate", "y": 90},
+    "facing=west,powered=false": { "model": "mooresmod:or_gate", "y": 270 },
+    "facing=south,powered=true": { "model": "mooresmod:or_gate" },
+    "facing=north,powered=true": { "model": "mooresmod:or_gate", "y": 180},
+    "facing=east,powered=true": { "model": "mooresmod:or_gate", "y": 90},
+    "facing=west,powered=true": { "model": "mooresmod:or_gate", "y": 270 }
   }
 }

@@ -10,6 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -21,6 +22,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityComparator;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
@@ -28,6 +30,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.Properties;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -37,7 +42,7 @@ import java.util.Random;
 //eliminate later
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public abstract class LogicBlock extends BlockRedstoneDiode implements IHasModel {
+public abstract class LogicBlock extends BlockRedstoneDiode implements ITileEntityProvider {
     protected static final AxisAlignedBB LOGIC_BLOCK_BB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
     public static final PropertyBool POWERED = PropertyBool.create("powered");
 
@@ -47,6 +52,7 @@ public abstract class LogicBlock extends BlockRedstoneDiode implements IHasModel
         setUnlocalizedName(name);
         setRegistryName(name);
         setCreativeTab(CreativeTabs.REDSTONE);
+        this.hasTileEntity = true;
 
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
@@ -64,6 +70,30 @@ public abstract class LogicBlock extends BlockRedstoneDiode implements IHasModel
         return this.isRepeaterPowered || (Boolean) state.getValue(POWERED);
     }
 
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new TileEntityLogicBlock();
+    }
+
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
+    {
+        super.onBlockAdded(worldIn, pos, state);
+        worldIn.setTileEntity(pos, this.createNewTileEntity(worldIn, 0));
+    }
+
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    {
+        super.breakBlock(worldIn, pos, state);
+        worldIn.removeTileEntity(pos);
+        this.notifyNeighbors(worldIn, pos, state);
+    }
+
+    @Override
+    public boolean isOpaqueCube(IBlockState state)
+    {
+        return true;
+    }
+
     private void onStateChange(World worldIn, BlockPos pos, IBlockState state) {
         boolean flag1 = this.shouldBePowered(worldIn, pos, state);
         boolean flag = this.isPowered(state);
@@ -75,6 +105,11 @@ public abstract class LogicBlock extends BlockRedstoneDiode implements IHasModel
         }
 
         this.notifyNeighbors(worldIn, pos, state);
+    }
+
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL;
     }
 
     @Override
@@ -168,9 +203,23 @@ public abstract class LogicBlock extends BlockRedstoneDiode implements IHasModel
         }
     }
 
+    @Override
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
+    {
+        return BlockFaceShape.SOLID;
+    }
+
+    @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
         return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(POWERED, Boolean.valueOf(false));
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
+    {
+        return true;
     }
 
     protected boolean calculateOutput(boolean input1, boolean input2) {
@@ -188,11 +237,5 @@ public abstract class LogicBlock extends BlockRedstoneDiode implements IHasModel
         }
 
         return i;
-    }
-
-
-    @Override
-    public void registerModels() {
-        Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
     }
 }

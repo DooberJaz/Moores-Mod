@@ -1,6 +1,6 @@
-item.and_gate.name=AND Gate
-item.not_gate.name=NOT Gate
-item.or_gate.name=OR Gate
-item.nand_gate.name=NAND Gate
-item.nor_gate.name=NOR Gate
-item.xor_gate.name=XOR Gate
+tile.and_gate.name=AND Gate
+tile.not_gate.name=NOT Gate
+tile.or_gate.name=OR Gate
+tile.nand_gate.name=NAND Gate
+tile.nor_gate.name=NOR Gate
+tile.xor_gate.name=XOR Gate

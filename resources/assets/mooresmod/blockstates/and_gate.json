@@ -1,22 +1,13 @@
 {
   "variants": {
-    "normal": [
-      {}
-    ],
-    "inventory": [
-      {}
-    ],
-    "facing": {
-      "north": { "model": "mooresmod:and_gate" },
-      "south": { "model": "mooresmod:and_gate",
-        "y": 180
-      },
-      "west": { "model": "mooresmod:and_gate",
-        "y": 270
-      },
-      "east": { "model": "mooresmod:and_gate",
-        "y": 90
-      }
-    }
+    "normal": { "model": "mooresmod:and_gate" },
+    "facing=south,powered=false": { "model": "mooresmod:and_gate" },
+    "facing=north,powered=false": { "model": "mooresmod:and_gate", "y": 180},
+    "facing=east,powered=false": { "model": "mooresmod:and_gate", "y": 90},
+    "facing=west,powered=false": { "model": "mooresmod:and_gate", "y": 270 },
+    "facing=south,powered=true": { "model": "mooresmod:and_gate" },
+    "facing=north,powered=true": { "model": "mooresmod:and_gate", "y": 180},
+    "facing=east,powered=true": { "model": "mooresmod:and_gate", "y": 90},
+    "facing=west,powered=true": { "model": "mooresmod:and_gate", "y": 270 }
   }
 }
