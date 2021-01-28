@@ -1,14 +1,18 @@
 package com.dooberjaz.mooresmod.util.handlers;
 
+import com.dooberjaz.mooresmod.blocks.TileEntityBluLogicBlock;
+import com.dooberjaz.mooresmod.blocks.TileEntityLogicBlock;
 import com.dooberjaz.mooresmod.init.ModBlocks;
 import com.dooberjaz.mooresmod.init.ModItems;
 import com.dooberjaz.mooresmod.util.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod.EventBusSubscriber
 public class RegistryHandler {
@@ -21,6 +25,7 @@ public class RegistryHandler {
     @SubscribeEvent
     public static void onBlockRegister(RegistryEvent.Register<Block> event){
         event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
+        registerTileEntities();
     }
 
     @SubscribeEvent
@@ -38,5 +43,10 @@ public class RegistryHandler {
         }
     }
 
+    public static void registerTileEntities()
+    {
+        GameRegistry.registerTileEntity(TileEntityLogicBlock.class, new ResourceLocation("mooresmod", ":models/block/nand_gate.json"));
+        GameRegistry.registerTileEntity(TileEntityBluLogicBlock.class, new ResourceLocation("mooresmod", ":models/block/nand_gate.json"));
+    }
 
 }

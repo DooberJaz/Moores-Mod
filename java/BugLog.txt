@@ -1,0 +1,11 @@
+BUG/ISSUE REPORT----------------
+NOTE: Fixed bugs will remain for now so I can see progress
+
+Blustone doesnt power redstone on sides (it seems to have a facing direction that it can connect to, but multiple
+connections seem to ruin it (sometimes stopping output alltogether)
+BluLogic does nothing (fixed)
+Blulogic blocks cannot be broken, possible tileentity issue
+All textures need setting up
+Tileentity NBT is not functional (data is lost upon reloading world)
+Generally blustone is very very buggy, but only with redstone and not with itself. May be unfixable due to redstones code
+Possibly could inherit from redstone somehow to fix it

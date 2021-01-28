@@ -58,6 +58,8 @@ public abstract class LogicBlock extends BlockRedstoneDiode implements ITileEnti
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
     }
 
+
+
     @Override
     protected int calculateInputStrength(@Nonnull World world, BlockPos pos, @Nonnull IBlockState state) {
         boolean firstInput = getPowerOnSide(world, pos.offset(state.getValue(FACING).rotateY()), state.getValue(FACING).rotateY()) > 0;
@@ -124,7 +126,7 @@ public abstract class LogicBlock extends BlockRedstoneDiode implements ITileEnti
 
     @Override
     protected boolean shouldBePowered(World worldIn, BlockPos pos, IBlockState state) {
-        return calculateInputStrength(worldIn, pos, state) == 15;
+        return calculateInputStrength(worldIn, pos, state) > 15;
     }
 
     @Override

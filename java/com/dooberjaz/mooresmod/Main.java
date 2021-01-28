@@ -1,6 +1,7 @@
 package com.dooberjaz.mooresmod;
 
 import com.dooberjaz.mooresmod.blocks.LogicBlock;
+import com.dooberjaz.mooresmod.blocks.TileEntityBluLogicBlock;
 import com.dooberjaz.mooresmod.blocks.TileEntityLogicBlock;
 import com.dooberjaz.mooresmod.init.ModBlocks;
 import com.dooberjaz.mooresmod.proxy.CommonProxy;
@@ -50,11 +51,12 @@ public class Main {
         event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
 
         registerTileEntities();
-    }
+    }*/
 
     public static void registerTileEntities()
     {
         GameRegistry.registerTileEntity(TileEntityLogicBlock.class, new ResourceLocation("mooresmod", ":models/block/nand_gate.json"));
-    }*/
+        GameRegistry.registerTileEntity(TileEntityBluLogicBlock.class, new ResourceLocation("mooresmod", ":models/block/nand_gate.json"));
+    }
 
 }
