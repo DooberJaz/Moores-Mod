@@ -1,6 +1,11 @@
 {
-  "parent": "block/cube",
+  "parent": "block/orientable",
   "textures": {
-    "all": "mooresmod:blocks/xor_gate"
+    "north": "mooresmod:blocks/out_side",
+    "west": "mooresmod:blocks/in_side",
+    "east": "mooresmod:blocks/in_side",
+    "south": "mooresmod:blocks/xor_gate",
+    "down": "mooresmod:blocks/xor_gate",
+    "up": "mooresmod:blocks/xor_gate"
   }
 }

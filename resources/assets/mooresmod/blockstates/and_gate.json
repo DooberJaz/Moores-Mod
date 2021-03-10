@@ -1,6 +1,5 @@
 {
   "variants": {
-    "normal": { "model": "mooresmod:and_gate" },
     "facing=south,powered=false": { "model": "mooresmod:and_gate" },
     "facing=north,powered=false": { "model": "mooresmod:and_gate", "y": 180},
     "facing=east,powered=false": { "model": "mooresmod:and_gate", "y": 90},

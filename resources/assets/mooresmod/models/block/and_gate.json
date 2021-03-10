@@ -1,5 +1,5 @@
 {
-  "parent": "block/cube",
+  "parent": "block/orientable",
   "textures": {
     "north": "mooresmod:blocks/out_side",
     "west": "mooresmod:blocks/in_side",

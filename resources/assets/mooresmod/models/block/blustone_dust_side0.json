@@ -1,0 +1,6 @@
+{
+  "parent": "mooresmod:blocks/blustone_dust_side",
+  "textures": {
+    "line": "mooresmod:blocks/blustone_dust_line0"
+  }
+}

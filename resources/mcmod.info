@@ -1,14 +1,14 @@
 [
 {
-  "modid": "mooresmod",
-  "name": "Moores Mod",
-  "description": "A mod that allows compact, accurate processors to be created from the logic gate level",
-  "version": "0.2",
-  "mcversion": "1.12.2",
+  "modid": "examplemod",
+  "name": "Example Mod",
+  "description": "Example placeholder mod.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["DooberJaz"],
-  "credits": "My project advisor",
+  "authorList": ["ExampleDude"],
+  "credits": "The Forge and FML guys, for making this example",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

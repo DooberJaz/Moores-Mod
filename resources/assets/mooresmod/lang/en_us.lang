@@ -4,3 +4,13 @@ tile.or_gate.name=OR Gate
 tile.nand_gate.name=NAND Gate
 tile.nor_gate.name=NOR Gate
 tile.xor_gate.name=XOR Gate
+tile.blu_and_gate.name=BLU AND Gate
+tile.blu_or_gate.name=BLU OR Gate
+tile.blu_not_gate.name=BLU NOT Gate
+tile.blu_nand_gate.name=BLU NAND Gate
+tile.blu_nor_gate.name=BLU NOR Gate
+tile.blu_xor_gate.name=BLU XOR Gate
+tile.blu_xnor_gate.name=BLU XNOR Gate
+tile.blustone.name=Blustone
+
+block.mooresmachine.name=Moores Machine
