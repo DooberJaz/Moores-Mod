@@ -9,3 +9,14 @@ All textures need setting up
 Tileentity NBT is not functional (data is lost upon reloading world)
 Generally blustone is very very buggy, but only with redstone and not with itself. May be unfixable due to redstones code
 Possibly could inherit from redstone somehow to fix it
+
+Tileentity persistence may be kept now?
+
+Cannot get property power even though it exists - had this before and fixed so can fix again
+
+Blustone notifyofstatechange is broken, possibly due to power property being needed, honestly this may be a larger issue
+The logic blocks always struggles with updating properly, so this function may have issues communicating with all blocks
+check the function(s) to see?
+
+
+

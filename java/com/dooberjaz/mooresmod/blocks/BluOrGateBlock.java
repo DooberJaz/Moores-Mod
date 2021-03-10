@@ -1,8 +1,11 @@
 package com.dooberjaz.mooresmod.blocks;
 
+import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityBluAndGateBlock;
+import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityBluOrGateBlock;
 import com.dooberjaz.mooresmod.init.ModBlocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -16,6 +19,15 @@ public class BluOrGateBlock extends BluLogicBlock{
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
+    private TileEntityBluOrGateBlock getTileEntity(World world, BlockPos pos) {
+        return (TileEntityBluOrGateBlock) world.getTileEntity(pos);
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new TileEntityBluOrGateBlock();
+    }
+
     protected int calculateOutput(int input1, int input2){
         return input1 | input2;
     }
@@ -26,6 +38,8 @@ public class BluOrGateBlock extends BluLogicBlock{
         int secondInput = getPowerOnSide(world, pos.offset(state.getValue(FACING).rotateYCCW()), state.getValue(FACING).rotateYCCW());
         int x = calculateOutput(firstInput, secondInput);
         world.setBlockState(pos, state.withProperty(POWER, x));
+        this.getTileEntity(world, pos).setOutputSignal(x);
+        this.getTileEntity(world, pos).markDirty();
         return x;
     }
 

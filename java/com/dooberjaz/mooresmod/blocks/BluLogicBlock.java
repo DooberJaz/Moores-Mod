@@ -1,27 +1,21 @@
 package com.dooberjaz.mooresmod.blocks;
 
+import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityBluLogicBlock;
 import com.dooberjaz.mooresmod.init.ModBlocks;
-import com.dooberjaz.mooresmod.init.ModItems;
-import com.dooberjaz.mooresmod.util.IHasModel;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -30,14 +24,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
+import static com.dooberjaz.mooresmod.util.Reference.BIT_SIZE;
+import static com.dooberjaz.mooresmod.util.Reference.CONST_POWER;
+
 public abstract class BluLogicBlock extends BlockBase implements ITileEntityProvider {
     public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
-    public static final PropertyInteger POWER = PropertyInteger.create("power", 0, 15);
+    public static final PropertyInteger POWER = CONST_POWER;
 
     public BluLogicBlock(String name, Material material) {
         super(name, material);
-        setUnlocalizedName(name);
-        setCreativeTab(CreativeTabs.REDSTONE);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWER, 0));
         this.hasTileEntity = true;
     }
@@ -62,7 +57,7 @@ public abstract class BluLogicBlock extends BlockBase implements ITileEntityProv
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {FACING, POWER});
+       return new BlockStateContainer(this, new IProperty[] {FACING, POWER});
     }
 
     @Override
@@ -118,17 +113,15 @@ public abstract class BluLogicBlock extends BlockBase implements ITileEntityProv
     {
     }
 
-    /*public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        if (!this.isLocked(worldIn, pos, state))
-        {
             boolean flag = this.shouldBePowered(worldIn, pos, state);
 
-            if (this.isRepeaterPowered && !flag)
+            if (state.getValue(POWER) > 0 && !flag)
             {
                 worldIn.setBlockState(pos, this.getUnpoweredState(state), 2);
             }
-            else if (!this.isRepeaterPowered)
+            else if (state.getValue(POWER) == 0)
             {
                 worldIn.setBlockState(pos, this.getPoweredState(state), 2);
 
@@ -137,8 +130,7 @@ public abstract class BluLogicBlock extends BlockBase implements ITileEntityProv
                     worldIn.updateBlockTick(pos, this.getPoweredState(state).getBlock(), this.getTickDelay(state), -1);
                 }
             }
-        }
-    }*/
+    }
 
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
@@ -223,12 +215,14 @@ public abstract class BluLogicBlock extends BlockBase implements ITileEntityProv
 
     protected void notifyNeighbors(World worldIn, BlockPos pos, IBlockState state)
     {
-        EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+        EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
+        EnumFacing input1 = (EnumFacing) state.getValue(FACING).rotateY();
+        EnumFacing input2 = (EnumFacing) state.getValue(FACING).rotateYCCW();
         BlockPos blockpos = pos.offset(enumfacing.getOpposite());
-        if(net.minecraftforge.event.ForgeEventFactory.onNeighborNotify(worldIn, pos, worldIn.getBlockState(pos), java.util.EnumSet.of(enumfacing.getOpposite()), false).isCanceled())
+        if (net.minecraftforge.event.ForgeEventFactory.onNeighborNotify(worldIn, pos, worldIn.getBlockState(pos), java.util.EnumSet.of(input1.getOpposite(), input2.getOpposite()), false).isCanceled())
             return;
         worldIn.neighborChanged(blockpos, this, pos);
-        worldIn.notifyNeighborsOfStateExcept(blockpos, this, enumfacing);
+        worldIn.notifyNeighborsOfStateChange(blockpos, this, false);
     }
 
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
@@ -240,13 +234,14 @@ public abstract class BluLogicBlock extends BlockBase implements ITileEntityProv
                 worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
             }
         }
-
+        worldIn.removeTileEntity(pos);
         super.onBlockDestroyedByPlayer(worldIn, pos, state);
+        worldIn.removeTileEntity(pos);
     }
 
     public boolean isOpaqueCube(IBlockState state)
     {
-        return false;
+        return true;
     }
 
     protected boolean isAlternateInput(IBlockState state)
@@ -327,5 +322,17 @@ public abstract class BluLogicBlock extends BlockBase implements ITileEntityProv
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
     {
         return BlockFaceShape.SOLID;
+    }
+
+    public int nonComplementNot(int beforeNot){
+        int afterNot = 0;
+        for(int i = BIT_SIZE-1; i >= 0; i--){
+            if(((double)beforeNot)/Math.pow(2, i) > 1.0){
+                beforeNot -= i;
+            } else {
+                afterNot += i;
+            }
+        }
+        return afterNot;
     }
 }

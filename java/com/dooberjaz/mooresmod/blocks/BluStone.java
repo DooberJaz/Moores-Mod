@@ -35,10 +35,12 @@ import java.util.Random;
 import java.util.Set;
 
 import static com.dooberjaz.mooresmod.blocks.BluLogicBlock.FACING;
+import static com.dooberjaz.mooresmod.util.Reference.CONST_POWER;
 
-public class BluStone extends BlockBase {
+public class BluStone extends Block {
+    //Id love to extend redstone wire so that this works perfectly with redstone, but the
+    //PropertyEnum is private and it causes lots of issues upon block registration
     //So this is redstone wire in every way, except the power value doesn't decay with each block placed
-    //I didnt inherit as im a moron
     //This means that the value given to the redstone at the start is the same as the value at the end
     //No matter how long the wire
     //This means that an integer value can be transferred between blocks
@@ -48,13 +50,21 @@ public class BluStone extends BlockBase {
     public static final PropertyEnum<BluStone.EnumAttachPosition> EAST = PropertyEnum.<BluStone.EnumAttachPosition>create("east", BluStone.EnumAttachPosition.class);
     public static final PropertyEnum<BluStone.EnumAttachPosition> SOUTH = PropertyEnum.<BluStone.EnumAttachPosition>create("south", BluStone.EnumAttachPosition.class);
     public static final PropertyEnum<BluStone.EnumAttachPosition> WEST = PropertyEnum.<BluStone.EnumAttachPosition>create("west", BluStone.EnumAttachPosition.class);
-    public static final PropertyInteger POWER = PropertyInteger.create("power", 0, (int) (Math.pow(2, BITS) - 1));
+    public static final PropertyInteger POWER = CONST_POWER;
+
     protected static final AxisAlignedBB[] REDSTONE_WIRE_AABB = new AxisAlignedBB[] {new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 1.0D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 1.0D, 0.0625D, 1.0D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D)};
     private boolean canProvidePower = true;
     private final Set<BlockPos> blocksNeedingUpdate = Sets.<BlockPos>newHashSet();
 
     public BluStone(String name, Material material){
-        super(name, material);
+        super(material);
+        setUnlocalizedName(name);
+        setRegistryName(name);
+        setCreativeTab(CreativeTabs.REDSTONE);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, BluStone.EnumAttachPosition.NONE).withProperty(EAST, BluStone.EnumAttachPosition.NONE).withProperty(SOUTH, BluStone.EnumAttachPosition.NONE).withProperty(WEST, BluStone.EnumAttachPosition.NONE).withProperty(POWER, Integer.valueOf(0)));
+
+        ModBlocks.BLOCKS.add(this);
+        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
@@ -577,6 +587,7 @@ public class BluStone extends BlockBase {
         }
     }
 
+    @Override
     protected BlockStateContainer createBlockState()
     {
         return new BlockStateContainer(this, new IProperty[] {NORTH, EAST, SOUTH, WEST, POWER});
@@ -587,7 +598,7 @@ public class BluStone extends BlockBase {
         return BlockFaceShape.UNDEFINED;
     }
 
-    static enum EnumAttachPosition implements IStringSerializable
+    protected static enum EnumAttachPosition implements IStringSerializable
     {
         UP("up"),
         SIDE("side"),

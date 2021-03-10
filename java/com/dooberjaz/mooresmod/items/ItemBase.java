@@ -6,7 +6,7 @@ import com.dooberjaz.mooresmod.util.IHasModel;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
-public class ItemBase extends Item {
+public class ItemBase extends Item implements IHasModel{
 
     public ItemBase(String name){
         setUnlocalizedName(name);
@@ -16,4 +16,8 @@ public class ItemBase extends Item {
         ModItems.ITEMS.add(this);
     }
 
+    @Override
+    public void registerModels() {
+        Main.proxy.registerItemRenderer(this, 0, "inventory");
+    }
 }

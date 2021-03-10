@@ -1,7 +1,6 @@
 package com.dooberjaz.mooresmod.util.handlers;
 
-import com.dooberjaz.mooresmod.blocks.TileEntityBluLogicBlock;
-import com.dooberjaz.mooresmod.blocks.TileEntityLogicBlock;
+import com.dooberjaz.mooresmod.blocks.tileEntities.*;
 import com.dooberjaz.mooresmod.init.ModBlocks;
 import com.dooberjaz.mooresmod.init.ModItems;
 import com.dooberjaz.mooresmod.util.IHasModel;
@@ -46,7 +45,13 @@ public class RegistryHandler {
     public static void registerTileEntities()
     {
         GameRegistry.registerTileEntity(TileEntityLogicBlock.class, new ResourceLocation("mooresmod", ":models/block/nand_gate.json"));
-        GameRegistry.registerTileEntity(TileEntityBluLogicBlock.class, new ResourceLocation("mooresmod", ":models/block/nand_gate.json"));
+        GameRegistry.registerTileEntity(TileEntityBluXnorGateBlock.class, new ResourceLocation("mooresmod", ":models/block/xnor_gate.json"));
+        GameRegistry.registerTileEntity(TileEntityBluXorGateBlock.class, new ResourceLocation("mooresmod", ":models/block/xor_gate.json"));
+        GameRegistry.registerTileEntity(TileEntityBluNorGateBlock.class, new ResourceLocation("mooresmod", ":models/block/nor_gate.json"));
+        GameRegistry.registerTileEntity(TileEntityBluOrGateBlock.class, new ResourceLocation("mooresmod", ":models/block/or_gate.json"));
+        GameRegistry.registerTileEntity(TileEntityBluNandGateBlock.class, new ResourceLocation("mooresmod", ":models/block/nand_gate.json"));
+        GameRegistry.registerTileEntity(TileEntityBluNotGateBlock.class, new ResourceLocation("mooresmod", ":models/block/not_gate.json"));
+        GameRegistry.registerTileEntity(TileEntityBluAndGateBlock.class, new ResourceLocation("mooresmod", ":models/block/and_gate.json"));
     }
 
 }

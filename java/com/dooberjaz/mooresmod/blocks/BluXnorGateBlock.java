@@ -1,7 +1,7 @@
 package com.dooberjaz.mooresmod.blocks;
 
 import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityBluAndGateBlock;
-import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityBluLogicBlock;
+import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityBluXnorGateBlock;
 import com.dooberjaz.mooresmod.init.ModBlocks;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -13,23 +13,24 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class BluAndGateBlock extends BluLogicBlock {
+public class BluXnorGateBlock extends BluLogicBlock {
 
-    public BluAndGateBlock(String name, Material material) {
+    public BluXnorGateBlock(String name, Material material) {
         super(name, material);
     }
 
     protected int calculateOutput(int input1, int input2){
-        return input1 & input2;
+        int beforeNot = (input1 ^ input2);
+        return nonComplementNot(beforeNot);
+    }
+
+    private TileEntityBluXnorGateBlock getTileEntity(World world, BlockPos pos) {
+        return (TileEntityBluXnorGateBlock) world.getTileEntity(pos);
     }
 
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityBluAndGateBlock();
-    }
-
-    private TileEntityBluAndGateBlock getTileEntity(World world, BlockPos pos) {
-        return (TileEntityBluAndGateBlock) world.getTileEntity(pos);
+        return new TileEntityBluXnorGateBlock();
     }
 
     @Override
@@ -46,12 +47,13 @@ public class BluAndGateBlock extends BluLogicBlock {
     @Override
     protected IBlockState getPoweredState(IBlockState unpoweredState) {
         EnumFacing enumfacing = (EnumFacing)unpoweredState.getValue(FACING);
-        return ModBlocks.BLU_AND_GATE.getDefaultState().withProperty(FACING, enumfacing);
+        return ModBlocks.BLU_XNOR_GATE.getDefaultState().withProperty(FACING, enumfacing);
     }
 
     @Override
     protected IBlockState getUnpoweredState(IBlockState poweredState) {
         EnumFacing enumfacing = (EnumFacing)poweredState.getValue(FACING);
-        return ModBlocks.BLU_AND_GATE.getDefaultState().withProperty(FACING, enumfacing);
+        return ModBlocks.BLU_XNOR_GATE.getDefaultState().withProperty(FACING, enumfacing);
     }
 }
+
