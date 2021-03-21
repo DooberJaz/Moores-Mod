@@ -1,5 +1,8 @@
 package com.dooberjaz.mooresmod.blocks;
 
+import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityBluLogicBlock;
+import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityBluOrGateBlock;
+import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityBluStone;
 import com.dooberjaz.mooresmod.init.ModBlocks;
 import com.dooberjaz.mooresmod.init.ModItems;
 import com.google.common.collect.Lists;
@@ -14,11 +17,13 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -35,6 +40,7 @@ import java.util.Random;
 import java.util.Set;
 
 import static com.dooberjaz.mooresmod.blocks.BluLogicBlock.FACING;
+import static com.dooberjaz.mooresmod.util.Reference.CONST_FACING;
 import static com.dooberjaz.mooresmod.util.Reference.CONST_POWER;
 
 public class BluStone extends Block {
@@ -52,6 +58,13 @@ public class BluStone extends Block {
     public static final PropertyEnum<BluStone.EnumAttachPosition> WEST = PropertyEnum.<BluStone.EnumAttachPosition>create("west", BluStone.EnumAttachPosition.class);
     public static final PropertyInteger POWER = CONST_POWER;
 
+    //Backuped version reloaded tor eset a lot of changes due to whole startegy change
+    //Blustone now will have a facing value and will only update the blustone it is facing towards
+    //Maybe also check if another blustone's facing is towards it to make absolute sure no
+    //Infinite loops occur?
+
+    public static final PropertyDirection FACING = CONST_FACING;
+
     protected static final AxisAlignedBB[] REDSTONE_WIRE_AABB = new AxisAlignedBB[] {new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 1.0D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 1.0D, 0.0625D, 1.0D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D)};
     private boolean canProvidePower = true;
     private final Set<BlockPos> blocksNeedingUpdate = Sets.<BlockPos>newHashSet();
@@ -61,7 +74,8 @@ public class BluStone extends Block {
         setUnlocalizedName(name);
         setRegistryName(name);
         setCreativeTab(CreativeTabs.REDSTONE);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, BluStone.EnumAttachPosition.NONE).withProperty(EAST, BluStone.EnumAttachPosition.NONE).withProperty(SOUTH, BluStone.EnumAttachPosition.NONE).withProperty(WEST, BluStone.EnumAttachPosition.NONE).withProperty(POWER, Integer.valueOf(0)));
+        this.hasTileEntity = true;
+        this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, BluStone.EnumAttachPosition.NONE).withProperty(EAST, BluStone.EnumAttachPosition.NONE).withProperty(SOUTH, BluStone.EnumAttachPosition.NONE).withProperty(WEST, BluStone.EnumAttachPosition.NONE).withProperty(POWER, Integer.valueOf(0)).withProperty(FACING, EnumFacing.NORTH));
 
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
@@ -70,6 +84,15 @@ public class BluStone extends Block {
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
     {
         return REDSTONE_WIRE_AABB[getAABBIndex(state.getActualState(source, pos))];
+    }
+
+    private TileEntityBluStone getTileEntity(World world, BlockPos pos) {
+        return (TileEntityBluStone) world.getTileEntity(pos);
+    }
+
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState state) {
+        return new TileEntityBluStone();
     }
 
     private static int getAABBIndex(IBlockState state)
@@ -103,6 +126,12 @@ public class BluStone extends Block {
         return i;
     }
 
+    @Override
+    public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos)
+    {
+        return getActualState(state, world, pos);
+    }
+
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
     {
         state = state.withProperty(WEST, this.getAttachPosition(worldIn, pos, EnumFacing.WEST));
@@ -111,6 +140,10 @@ public class BluStone extends Block {
         state = state.withProperty(SOUTH, this.getAttachPosition(worldIn, pos, EnumFacing.SOUTH));
         return state;
     }
+
+    //Something around here should help with storing or determining power without needing to ever save it???
+
+
 
     private BluStone.EnumAttachPosition getAttachPosition(IBlockAccess worldIn, BlockPos pos, EnumFacing direction)
     {
@@ -197,26 +230,24 @@ public class BluStone extends Block {
 
         int l = 0;
 
-        for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
-        {
-            BlockPos blockpos = pos1.offset(enumfacing);
-            boolean flag = blockpos.getX() != pos2.getX() || blockpos.getZ() != pos2.getZ();
+        //do more here
 
-            if (flag)
-            {
-                l = this.getMaxCurrentStrength(worldIn, blockpos, l, enumfacing);
-            }
+        for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
+            if (state.getValue(FACING) != enumfacing) {
+                BlockPos blockpos = pos1.offset(enumfacing);
+                boolean flag = blockpos.getX() != pos2.getX() || blockpos.getZ() != pos2.getZ();
 
-            if (worldIn.getBlockState(blockpos).isNormalCube() && !worldIn.getBlockState(pos1.up()).isNormalCube())
-            {
-                if (flag && pos1.getY() >= pos2.getY())
-                {
-                    l = this.getMaxCurrentStrength(worldIn, blockpos.up(), l, enumfacing);
+                if (flag) {
+                    l = this.getMaxCurrentStrength(worldIn, blockpos, l, enumfacing);
                 }
-            }
-            else if (!worldIn.getBlockState(blockpos).isNormalCube() && flag && pos1.getY() <= pos2.getY())
-            {
-                l = this.getMaxCurrentStrength(worldIn, blockpos.down(), l, enumfacing);
+
+                if (worldIn.getBlockState(blockpos).isNormalCube() && !worldIn.getBlockState(pos1.up()).isNormalCube()) {
+                    if (flag && pos1.getY() >= pos2.getY()) {
+                        l = this.getMaxCurrentStrength(worldIn, blockpos.up(), l, enumfacing);
+                    }
+                } else if (!worldIn.getBlockState(blockpos).isNormalCube() && flag && pos1.getY() <= pos2.getY()) {
+                    l = this.getMaxCurrentStrength(worldIn, blockpos.down(), l, enumfacing);
+                }
             }
         }
 
@@ -244,6 +275,10 @@ public class BluStone extends Block {
             if (worldIn.getBlockState(pos1) == iblockstate)
             {
                 worldIn.setBlockState(pos1, state, 2);
+                if(this.getTileEntity(worldIn, pos1) != null){
+                    this.getTileEntity(worldIn, pos1).setOutputSignal(j);
+                    this.getTileEntity(worldIn, pos1).markDirty();
+                }
             }
 
             this.blocksNeedingUpdate.add(pos1);
@@ -252,9 +287,15 @@ public class BluStone extends Block {
             {
                 this.blocksNeedingUpdate.add(pos1.offset(enumfacing1));
             }
+            this.updateSurroundingRedstone(worldIn, pos1, state);
         }
 
         return state;
+    }
+
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    {
+        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
     }
 
     private void notifyWireNeighborsOfStateChange(World worldIn, BlockPos pos)
@@ -272,6 +313,8 @@ public class BluStone extends Block {
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
+        super.onBlockAdded(worldIn, pos, state);
+        worldIn.setTileEntity(pos, this.createTileEntity(worldIn, state));
         if (!worldIn.isRemote)
         {
             this.updateSurroundingRedstone(worldIn, pos, state);
@@ -336,27 +379,56 @@ public class BluStone extends Block {
         }
     }
 
+
     private int getMaxCurrentStrength(World worldIn, BlockPos pos, int strength, EnumFacing enumFacing)
     {
+        //rewrite this
         Block block = worldIn.getBlockState(pos).getBlock();
-        if ((block == ModBlocks.BLU_AND_GATE)|| (block == ModBlocks.BLU_OR_GATE)) {
+        if (isConnectedToSource(block)) {
             BluLogicBlock x = (BluLogicBlock) block;
-            EnumFacing facing = x.getBlockState().getBaseState().getValue(FACING);
+            EnumFacing facing = worldIn.getBlockState(pos).getValue(FACING);
             if(facing == enumFacing.rotateY().rotateY()) {
-                int i = ((Integer) worldIn.getBlockState(pos).getValue(POWER)).intValue();
-                return i > strength ? i : strength;
+                return strength;
+            } else {
+                return worldIn.getBlockState(pos).getValue(POWER);
+            }
+        } else if(isConnectedToVanillaSource(block)) {
+            return 15;
+        } else if(block == ModBlocks.POWER_GENERATOR) {
+            return worldIn.getBlockState(pos).getValue(POWER);
+        } else if (block == ModBlocks.BLUSTONE) {
+            EnumFacing facing = worldIn.getBlockState(pos).getValue(FACING);
+            if(enumFacing!= null) {
+                if (facing == enumFacing.rotateY().rotateY()) {
+                    return worldIn.getBlockState(pos).getValue(POWER);
+                } else {
+                    return strength;
+                }
             } else {
                 return strength;
             }
-        }
-        else if (worldIn.getBlockState(pos).getBlock() != this)
-        {
+        } else {
             return strength;
         }
-        else
-        {
-            int i = ((Integer)worldIn.getBlockState(pos).getValue(POWER)).intValue();
-            return i > strength ? i : strength;
+    }
+
+
+    //rename to "isSource?"
+    private boolean isConnectedToSource(Block block){
+        if ((block == ModBlocks.BLU_AND_GATE) || (block == ModBlocks.BLU_OR_GATE) || (block == ModBlocks.BLU_NOR_GATE)
+                || (block == ModBlocks.BLU_XOR_GATE) || (block == ModBlocks.BLU_XNOR_GATE)
+                || (block == ModBlocks.BLU_NAND_GATE) || (block == ModBlocks.BLU_NOT_GATE)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isConnectedToVanillaSource(Block block){
+        if ((block == Blocks.REDSTONE_TORCH) || (block == Blocks.REDSTONE_BLOCK)){
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -378,7 +450,7 @@ public class BluStone extends Block {
 
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        return Items.REDSTONE;
+        return Item.getItemFromBlock(ModBlocks.BLUSTONE);
     }
 
     public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
@@ -410,9 +482,10 @@ public class BluStone extends Block {
 
                 for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
                 {
-                    if (this.isPowerSourceAt(blockAccess, pos, enumfacing))
-                    {
-                        enumset.add(enumfacing);
+                    if(enumfacing != blockState.getValue(FACING)) {
+                        if (this.isPowerSourceAt(blockAccess, pos, enumfacing)) {
+                            enumset.add(enumfacing);
+                        }
                     }
                 }
 
@@ -540,12 +613,22 @@ public class BluStone extends Block {
 
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state)
     {
-        return new ItemStack(Items.REDSTONE);
+        return new ItemStack(Item.getItemFromBlock(ModBlocks.BLUSTONE));
     }
 
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(POWER, Integer.valueOf(meta));
+        int directionInt = meta;
+
+        if (directionInt == 0) {
+            return this.getDefaultState().withProperty(FACING, EnumFacing.NORTH);
+        } else if (directionInt == 1) {
+            return this.getDefaultState().withProperty(FACING, EnumFacing.EAST);
+        } else if (directionInt == 2) {
+            return this.getDefaultState().withProperty(FACING, EnumFacing.SOUTH);
+        } else {
+            return this.getDefaultState().withProperty(FACING, EnumFacing.WEST);
+        }
     }
 
     @SideOnly(Side.CLIENT)
@@ -556,7 +639,15 @@ public class BluStone extends Block {
 
     public int getMetaFromState(IBlockState state)
     {
-        return ((Integer)state.getValue(POWER)).intValue();
+        if (state.getValue(FACING) == EnumFacing.NORTH) {
+            return 0;
+        } else if (state.getValue(FACING) == EnumFacing.EAST) {
+            return 1;
+        } else if (state.getValue(FACING) == EnumFacing.SOUTH) {
+            return 2;
+        } else {
+            return 3;
+        }
     }
 
     public IBlockState withRotation(IBlockState state, Rotation rot)
@@ -590,7 +681,7 @@ public class BluStone extends Block {
     @Override
     protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {NORTH, EAST, SOUTH, WEST, POWER});
+        return new BlockStateContainer(this, new IProperty[] {NORTH, EAST, SOUTH, WEST, POWER, FACING});
     }
 
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)

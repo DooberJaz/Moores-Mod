@@ -23,8 +23,8 @@ public class RegistryHandler {
 
     @SubscribeEvent
     public static void onBlockRegister(RegistryEvent.Register<Block> event){
-        event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
         registerTileEntities();
+        event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
     }
 
     @SubscribeEvent
@@ -52,6 +52,7 @@ public class RegistryHandler {
         GameRegistry.registerTileEntity(TileEntityBluNandGateBlock.class, new ResourceLocation("mooresmod", ":models/block/nand_gate.json"));
         GameRegistry.registerTileEntity(TileEntityBluNotGateBlock.class, new ResourceLocation("mooresmod", ":models/block/not_gate.json"));
         GameRegistry.registerTileEntity(TileEntityBluAndGateBlock.class, new ResourceLocation("mooresmod", ":models/block/and_gate.json"));
+        GameRegistry.registerTileEntity(TileEntityBluStone.class, new ResourceLocation("mooresmod", ":models/block/blustone.json"));
     }
 
 }

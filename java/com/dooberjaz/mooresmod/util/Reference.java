@@ -1,6 +1,8 @@
 package com.dooberjaz.mooresmod.util;
 
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.util.EnumFacing;
 
 public class Reference {
     public static final String MOD_ID = "mooresmod";
@@ -12,5 +14,6 @@ public class Reference {
 
     public static final int BIT_SIZE = 4;
 
+    public static final PropertyDirection CONST_FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
     public static final PropertyInteger CONST_POWER = PropertyInteger.create("power", 0, (int) (Math.pow(2, BIT_SIZE) - 1));
 }

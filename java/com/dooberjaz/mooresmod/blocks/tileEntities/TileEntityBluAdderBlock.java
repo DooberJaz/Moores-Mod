@@ -1,14 +1,8 @@
 package com.dooberjaz.mooresmod.blocks.tileEntities;
 
-import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
-public class TileEntityBluOrGateBlock extends TileEntityBluLogicBlock {
+public class TileEntityBluAdderBlock  extends TileEntityBluLogicBlock {
     private int outputSignal;
 
     @Override

@@ -31,4 +31,6 @@ public class ModBlocks{
     public static final Block BLU_XNOR_GATE = new BluXnorGateBlock("blu_xnor_gate", Material.ROCK);
     public static final Block BLU_NOT_GATE = new BluNotGateBlock("blu_not_gate", Material.ROCK);
 
+    public static final Block POWER_GENERATOR= new PowerGeneratorBlock("power_generator", Material.ROCK);
+
 }

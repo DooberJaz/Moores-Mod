@@ -11,6 +11,13 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class TileEntityBluLogicBlock extends TileEntity {
     private int outputSignal;
 
+    @Override
+    public boolean isInvalid()
+    {
+        return false;
+    }
+
+    @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         compound.setInteger("OutputSignal", this.outputSignal);
@@ -18,6 +25,7 @@ public class TileEntityBluLogicBlock extends TileEntity {
         return compound;
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);

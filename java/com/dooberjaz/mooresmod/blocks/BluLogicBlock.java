@@ -24,35 +24,48 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
-import static com.dooberjaz.mooresmod.util.Reference.BIT_SIZE;
-import static com.dooberjaz.mooresmod.util.Reference.CONST_POWER;
+import static com.dooberjaz.mooresmod.util.Reference.*;
 
-public abstract class BluLogicBlock extends BlockBase implements ITileEntityProvider {
-    public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+public abstract class BluLogicBlock extends BlockBase {
+
+    public static final PropertyDirection FACING = CONST_FACING;
     public static final PropertyInteger POWER = CONST_POWER;
 
     public BluLogicBlock(String name, Material material) {
         super(name, material);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWER, 0));
         this.hasTileEntity = true;
+        this.fullBlock = true;
     }
 
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public boolean hasTileEntity(IBlockState state) {
+        return true;
+    }
+
+
+    @Override
+    public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos)
+    {
+        //Copy this and put it in every single logic block with a changed tileentity type
+        TileEntityBluLogicBlock tileEntity = (TileEntityBluLogicBlock)world.getTileEntity(pos);
+        try{
+            return state.withProperty(POWER, tileEntity.getOutputSignal());
+        } catch(NullPointerException e){
+            return state;
+        }
+    }
+
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState state) {
         return new TileEntityBluLogicBlock();
     }
 
+    @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
+        worldIn.setTileEntity(pos, this.createTileEntity(worldIn, state));
         super.onBlockAdded(worldIn, pos, state);
-        worldIn.setTileEntity(pos, this.createNewTileEntity(worldIn, 0));
-    }
-
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
-    {
-        super.breakBlock(worldIn, pos, state);
-        worldIn.removeTileEntity(pos);
-        this.notifyNeighbors(worldIn, pos, state);
     }
 
     @Override
@@ -92,10 +105,12 @@ public abstract class BluLogicBlock extends BlockBase implements ITileEntityProv
         return 0;
     }
 
-    public boolean isFullCube(IBlockState state)
+    @Override
+    public boolean isNormalCube(IBlockState state, IBlockAccess world, BlockPos pos)
     {
         return true;
     }
+
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
@@ -136,11 +151,6 @@ public abstract class BluLogicBlock extends BlockBase implements ITileEntityProv
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
     {
         return side.getAxis() != EnumFacing.Axis.Y;
-    }
-
-    public boolean isLocked(IBlockAccess worldIn, BlockPos pos, IBlockState state)
-    {
-        return false;
     }
 
     protected boolean shouldBePowered(World worldIn, BlockPos pos, IBlockState state)
@@ -202,7 +212,7 @@ public abstract class BluLogicBlock extends BlockBase implements ITileEntityProv
 
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
     }
 
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
@@ -225,6 +235,7 @@ public abstract class BluLogicBlock extends BlockBase implements ITileEntityProv
         worldIn.notifyNeighborsOfStateChange(blockpos, this, false);
     }
 
+    @Override
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
     {
         if (this.shouldBePowered(worldIn, pos, state))
@@ -236,11 +247,30 @@ public abstract class BluLogicBlock extends BlockBase implements ITileEntityProv
         }
         worldIn.removeTileEntity(pos);
         super.onBlockDestroyedByPlayer(worldIn, pos, state);
-        worldIn.removeTileEntity(pos);
     }
 
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+    {
+        super.breakBlock(worldIn, pos, state);
+        worldIn.removeTileEntity(pos);
+        if (!worldIn.isRemote)
+        {
+            for (EnumFacing enumfacing : EnumFacing.values())
+            {
+                worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
+            }
+        }
+    }
+
+    @Override
     public boolean isOpaqueCube(IBlockState state)
     {
+        return true;
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state){
         return true;
     }
 
@@ -294,11 +324,6 @@ public abstract class BluLogicBlock extends BlockBase implements ITileEntityProv
         return this.isSameDiode(other.getDefaultState());
     }
 
-    @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer()
-    {
-        return BlockRenderLayer.CUTOUT;
-    }
 
     /* ======================================== FORGE START =====================================*/
     @Override

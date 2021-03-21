@@ -5,6 +5,7 @@ import com.dooberjaz.mooresmod.init.ModBlocks;
 import com.dooberjaz.mooresmod.proxy.ClientProxy;
 import com.dooberjaz.mooresmod.util.IHasModel;
 import com.dooberjaz.mooresmod.util.Reference;
+import com.dooberjaz.mooresmod.util.handlers.GuiHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -18,7 +19,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class MooresMachineBlock extends BlockBase implements IHasModel {
+public class MooresMachineBlock extends BlockBase implements IHasModel{
 
     public static final PropertyDirection FACING = PropertyDirection.create(
             "facing", EnumFacing.Plane.HORIZONTAL);
@@ -30,9 +31,8 @@ public class MooresMachineBlock extends BlockBase implements IHasModel {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-            playerIn.openGui(Reference.MOD_ID, 0, //0 = MooresMachine GUI
+        playerIn.openGui(Reference.MOD_ID, 0, //0 = MooresMachine GUI
                     worldIn, pos.getX(), pos.getY(), pos.getZ());
-
         return true;
     }
 

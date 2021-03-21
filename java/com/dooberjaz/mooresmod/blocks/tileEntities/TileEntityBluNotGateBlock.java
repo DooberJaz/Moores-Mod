@@ -8,9 +8,10 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class TileEntityBluNotGateBlock extends TileEntity {
+public class TileEntityBluNotGateBlock extends TileEntityBluLogicBlock {
     private int outputSignal;
 
+    @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         compound.setInteger("OutputSignal", this.outputSignal);
@@ -18,6 +19,7 @@ public class TileEntityBluNotGateBlock extends TileEntity {
         return compound;
     }
 
+    @Override
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
