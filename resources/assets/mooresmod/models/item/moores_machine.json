@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "mooresmod:blocks/moores_machine_side"
+  }
+}

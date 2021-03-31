@@ -1,0 +1,11 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "north": "mooresmod:blocks/moores_machine_side",
+    "west": "mooresmod:blocks/moores_machine_side",
+    "east": "mooresmod:blocks/moores_machine_side",
+    "south": "mooresmod:blocks/moores_machine_side",
+    "down": "mooresmod:blocks/moores_machine_top",
+    "up": "mooresmod:blocks/moores_machine_top"
+  }
+}

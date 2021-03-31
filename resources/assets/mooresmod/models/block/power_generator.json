@@ -1,0 +1,11 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "north": "mooresmod:blocks/power_generator_side",
+    "west": "mooresmod:blocks/power_generator_side",
+    "east": "mooresmod:blocks/power_generator_side",
+    "south": "mooresmod:blocks/power_generator_side",
+    "down": "mooresmod:blocks/power_generator_top",
+    "up": "mooresmod:blocks/power_generator_top"
+  }
+}

@@ -12,5 +12,5 @@ tile.blu_nor_gate.name=BLU NOR Gate
 tile.blu_xor_gate.name=BLU XOR Gate
 tile.blu_xnor_gate.name=BLU XNOR Gate
 tile.blustone.name=Blustone
-
-block.mooresmachine.name=Moores Machine
+tile.moores_machine.name=Moores Machine
+tile.power_generator.name=Power Generator

@@ -1,6 +1,5 @@
 {
   "recipes": {
-
+    "moores_machine": "com.dooberjaz.recipes.mooresrecipes.RecipeToolMold$Factory"
   }
 }
-

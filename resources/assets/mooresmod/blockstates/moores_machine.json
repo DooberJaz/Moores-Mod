@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=south": { "model": "mooresmod:moores_machine", "y": 180},
+    "facing=north": { "model": "mooresmod:moores_machine" },
+    "facing=east": { "model": "mooresmod:moores_machine", "y": 90},
+    "facing=west": { "model": "mooresmod:moores_machine", "y": 270 }
+  }
+}
