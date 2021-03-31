@@ -30,7 +30,10 @@ public class ContainerMooresMachine extends Container
     )
     {
         this.world = worldIn;
-        this.player = playerInventory.player;
+        this.player = playerInventoryIn.player;
+
+        playerInventory = playerInventoryIn;
+
         MooresMachineRecipeHandler mooresMachineRecipeHandler = new MooresMachineRecipeHandler();
 
         //creation of input slots (9x9)
@@ -39,30 +42,28 @@ public class ContainerMooresMachine extends Container
             for(int iy = 0; iy < 9; ++iy)
             {
                 addSlotToContainer(new Slot(craftMatrix, iy +
-                        ix * 3, 17 + iy * 18,
-                        17 + ix * 18));
+                        ix * 3,  (int)Math.round(ix * 16.5) - 24,
+                        (int)Math.round(iy * 16.5) - 27));
             }
         }
 
         //creation of output slot (1)
-        addSlotToContainer(new Slot(craftMatrix, 0, 30 + 15, 35));
+        addSlotToContainer(new Slot(craftResult, 0,  190, 38));
 
         //creation of player inv slots
         for (int k = 0; k < 3; ++k)
         {
             for (int i1 = 0; i1 < 9; ++i1)
             {
-                this.addSlotToContainer(new Slot(playerInventory, i1 + k * 9 + 9, 8 + i1 * 18, 84 + k * 18));
+                this.addSlotToContainer(new Slot(playerInventory, i1 + (k * 9) + 9, (int)Math.round(i1 * 16.5) -24, 135 + (int)Math.round(k * 16.5)));
             }
         }
 
         //creation of player hotbar slots
         for (int l = 0; l < 9; ++l)
         {
-            this.addSlotToContainer(new Slot(playerInventory, l, 8 + l * 18, 142));
+            this.addSlotToContainer(new Slot(playerInventory, l, (int)Math.round(l * 16.5)-24, 189));
         }
-
-        playerInventory = playerInventoryIn;
     }
 
     @Override

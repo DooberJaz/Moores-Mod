@@ -24,6 +24,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityComparator;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -141,9 +142,6 @@ public class BluStone extends Block {
         return state;
     }
 
-    //Something around here should help with storing or determining power without needing to ever save it???
-
-
 
     private BluStone.EnumAttachPosition getAttachPosition(IBlockAccess worldIn, BlockPos pos, EnumFacing direction)
     {
@@ -216,9 +214,16 @@ public class BluStone extends Block {
     protected IBlockState calculateCurrentChanges(World worldIn, BlockPos pos1, BlockPos pos2, IBlockState state)
     {
         IBlockState iblockstate = state;
-        int i = ((Integer)state.getValue(POWER)).intValue();
+        int i = (Integer) state.getValue(POWER);
         int j = 0;
-        j = this.getMaxCurrentStrength(worldIn, pos2, j, null);
+        TileEntity tileEntity = worldIn.getTileEntity(pos1);
+        if (tileEntity instanceof TileEntityBluStone)
+        {
+            TileEntityBluStone tileEnt = (TileEntityBluStone)tileEntity;
+            j = tileEnt.getPower();
+            tileEnt.setPower(i);
+        }
+
         this.canProvidePower = false;
         int k = worldIn.isBlockIndirectlyGettingPowered(pos1);
         this.canProvidePower = true;
@@ -275,9 +280,10 @@ public class BluStone extends Block {
             if (worldIn.getBlockState(pos1) == iblockstate)
             {
                 worldIn.setBlockState(pos1, state, 2);
-                if(this.getTileEntity(worldIn, pos1) != null){
-                    this.getTileEntity(worldIn, pos1).setOutputSignal(j);
-                    this.getTileEntity(worldIn, pos1).markDirty();
+                if (tileEntity instanceof TileEntityBluStone)
+                {
+                    TileEntityBluStone tileEnt = (TileEntityBluStone)tileEntity;
+                    tileEnt.setPower(j);
                 }
             }
 
@@ -286,6 +292,11 @@ public class BluStone extends Block {
             for (EnumFacing enumfacing1 : EnumFacing.values())
             {
                 this.blocksNeedingUpdate.add(pos1.offset(enumfacing1));
+                Block block = worldIn.getBlockState(pos1.offset(enumfacing1)).getBlock();
+                if(isConnectedToSource(block)){
+                    BluLogicBlock block2 = (BluLogicBlock) block;
+                    block2.calculateInputStrength(worldIn, pos1.offset(enumfacing1), block2.getDefaultState());
+                }
             }
             this.updateSurroundingRedstone(worldIn, pos1, state);
         }
@@ -307,6 +318,11 @@ public class BluStone extends Block {
             for (EnumFacing enumfacing : EnumFacing.values())
             {
                 worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
+                Block block = worldIn.getBlockState(pos.offset(enumfacing)).getBlock();
+                if(isConnectedToSource(block)){
+                    // fuck. Update tick wont work so probably have to somehow make it a neighbor? Blustone is so it must be possible.
+                    //block.updateTick(worldIn, pos, block.getDefaultState(), 1);
+                }
             }
         }
     }
@@ -387,7 +403,7 @@ public class BluStone extends Block {
         if (isConnectedToSource(block)) {
             BluLogicBlock x = (BluLogicBlock) block;
             EnumFacing facing = worldIn.getBlockState(pos).getValue(FACING);
-            if(facing == enumFacing.rotateY().rotateY()) {
+            if(facing == enumFacing) {
                 return strength;
             } else {
                 return worldIn.getBlockState(pos).getValue(POWER);

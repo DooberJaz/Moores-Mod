@@ -5,9 +5,11 @@ import com.dooberjaz.mooresmod.init.ModBlocks;
 import com.dooberjaz.mooresmod.init.ModItems;
 import com.dooberjaz.mooresmod.util.IHasModel;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -30,9 +32,7 @@ public class RegistryHandler {
     @SubscribeEvent
     public static void onModelRegister(ModelRegistryEvent event){
         for(Item item : ModItems.ITEMS){
-            if(item instanceof IHasModel){
-                ((IHasModel) item).registerModels();
-            }
+            ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
         }
 
         for(Block block : ModBlocks.BLOCKS){

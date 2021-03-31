@@ -40,5 +40,6 @@ public class TileEntityBluLogicBlock extends TileEntity {
     public void setOutputSignal(int outputSignalIn)
     {
         this.outputSignal = outputSignalIn;
+        this.markDirty();
     }
 }

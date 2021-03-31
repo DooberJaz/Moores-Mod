@@ -1,5 +1,7 @@
 package com.dooberjaz.mooresmod.blocks;
 
+import com.dooberjaz.mooresmod.Main;
+import com.dooberjaz.mooresmod.util.IHasModel;
 import com.dooberjaz.mooresmod.util.Reference;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -7,6 +9,7 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -15,7 +18,7 @@ import net.minecraft.world.World;
 import static com.dooberjaz.mooresmod.util.Reference.BIT_SIZE;
 import static com.dooberjaz.mooresmod.util.Reference.CONST_POWER;
 
-public class PowerGeneratorBlock extends BlockBase {
+public class PowerGeneratorBlock extends BlockBase implements IHasModel {
     public static final PropertyInteger POWER = CONST_POWER;
 
     public PowerGeneratorBlock(String name, Material material) {
@@ -42,5 +45,10 @@ public class PowerGeneratorBlock extends BlockBase {
         int power = state.getValue(POWER);
 
         return power;
+    }
+
+    @Override
+    public void registerModels() {
+        Main.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
     }
 }

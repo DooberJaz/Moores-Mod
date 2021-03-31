@@ -27,13 +27,14 @@ public class TileEntityBluStone extends TileEntity {
         this.power = compound.getInteger("OutputSignal");
     }
 
-    public int getOutputSignal()
+    public int getPower()
     {
         return this.power;
     }
 
-    public void setOutputSignal(int outputSignalIn)
+    public void setPower(int powerIn)
     {
-        this.power = outputSignalIn;
+        this.power = powerIn;
+        this.markDirty();
     }
 }

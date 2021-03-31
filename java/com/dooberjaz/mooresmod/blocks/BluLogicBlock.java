@@ -2,6 +2,7 @@ package com.dooberjaz.mooresmod.blocks;
 
 import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityBluLogicBlock;
 import com.dooberjaz.mooresmod.init.ModBlocks;
+import com.dooberjaz.mooresmod.init.ModItems;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -10,37 +11,58 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 import static com.dooberjaz.mooresmod.util.Reference.*;
 
-public abstract class BluLogicBlock extends BlockBase {
+public abstract class BluLogicBlock extends Block {
 
     public static final PropertyDirection FACING = CONST_FACING;
     public static final PropertyInteger POWER = CONST_POWER;
+    protected static final AxisAlignedBB LOGIC_BLOCK_BB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
 
     public BluLogicBlock(String name, Material material) {
-        super(name, material);
+        super(material);
+        setUnlocalizedName(name);
+        setRegistryName(name);
+        setCreativeTab(CreativeTabs.REDSTONE);
+
+        ModBlocks.BLOCKS.add(this);
+        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(name));
+
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWER, 0));
-        this.hasTileEntity = true;
-        this.fullBlock = true;
+    }
+
+    @Override
+    public boolean canConnectRedstone(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
+        return true;
     }
 
     @Override
     public boolean hasTileEntity(IBlockState state) {
         return true;
+    }
+
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return LOGIC_BLOCK_BB;
     }
 
 
@@ -101,8 +123,59 @@ public abstract class BluLogicBlock extends BlockBase {
         }
     }
 
+    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
+    {
+        if (state.getValue(POWER) > 0)
+        {
+            for (EnumFacing enumfacing : EnumFacing.values())
+            {
+                worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
+            }
+        }
+
+        /*if(worldIn.getTileEntity(pos) != null) {
+            worldIn.removeTileEntity(pos);
+        }*/
+
+        super.onBlockDestroyedByPlayer(worldIn, pos, state);
+    }
+
+    protected void updateState(World worldIn, BlockPos pos, IBlockState state) {
+
+        boolean flag = this.shouldBePowered(worldIn, pos, state);
+
+        if ((state.getValue(POWER) > 0) != flag && !worldIn.isBlockTickPending(pos, this)) {
+            int i = -1;
+
+            if ((state.getValue(POWER) > 0)) {
+                i = -2;
+            }
+
+            worldIn.updateBlockTick(pos, this, this.getDelay(state), i);
+        }
+    }
+
+    //Make this work
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
+    {
+        if (this.canBlockStay(worldIn, pos))
+        {
+            this.updateState(worldIn, pos, state);
+        }
+        else
+        {
+            this.dropBlockAsItem(worldIn, pos, state, 0);
+            worldIn.setBlockToAir(pos);
+
+            for (EnumFacing enumfacing : EnumFacing.values())
+            {
+                worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
+            }
+        }
+    }
+
     protected int getDelay(IBlockState state) {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -127,7 +200,10 @@ public abstract class BluLogicBlock extends BlockBase {
     public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
     {
     }
+    /*
 
+    On for now because it might not be the cause of a lot of bugs and also entirely not needed
+    */
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
             boolean flag = this.shouldBePowered(worldIn, pos, state);
@@ -150,7 +226,7 @@ public abstract class BluLogicBlock extends BlockBase {
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
     {
-        return side.getAxis() != EnumFacing.Axis.Y;
+        return true;
     }
 
     protected boolean shouldBePowered(World worldIn, BlockPos pos, IBlockState state)
@@ -236,24 +312,12 @@ public abstract class BluLogicBlock extends BlockBase {
     }
 
     @Override
-    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
-    {
-        if (this.shouldBePowered(worldIn, pos, state))
-        {
-            for (EnumFacing enumfacing : EnumFacing.values())
-            {
-                worldIn.notifyNeighborsOfStateChange(pos.offset(enumfacing), this, false);
-            }
-        }
-        worldIn.removeTileEntity(pos);
-        super.onBlockDestroyedByPlayer(worldIn, pos, state);
-    }
-
-    @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
+        if(worldIn.getTileEntity(pos) != null) {
+            worldIn.removeTileEntity(pos);
+        }
         super.breakBlock(worldIn, pos, state);
-        worldIn.removeTileEntity(pos);
         if (!worldIn.isRemote)
         {
             for (EnumFacing enumfacing : EnumFacing.values())
@@ -281,34 +345,9 @@ public abstract class BluLogicBlock extends BlockBase {
 
     protected int getActiveSignal(IBlockAccess worldIn, BlockPos pos, IBlockState state)
     {
-        return 15;
+        return state.getValue(POWER);
     }
 
-    public static boolean isDiode(IBlockState state)
-    {
-        return Blocks.UNPOWERED_REPEATER.isSameDiode(state) || Blocks.UNPOWERED_COMPARATOR.isSameDiode(state);
-    }
-
-    public boolean isSameDiode(IBlockState state)
-    {
-        Block block = state.getBlock();
-        return block == this.getPoweredState(this.getDefaultState()).getBlock() || block == this.getUnpoweredState(this.getDefaultState()).getBlock();
-    }
-
-    public boolean isFacingTowardsRepeater(World worldIn, BlockPos pos, IBlockState state)
-    {
-        EnumFacing enumfacing = ((EnumFacing)state.getValue(FACING)).getOpposite();
-        BlockPos blockpos = pos.offset(enumfacing);
-
-        if (isDiode(worldIn.getBlockState(blockpos)))
-        {
-            return worldIn.getBlockState(blockpos).getValue(FACING) != enumfacing;
-        }
-        else
-        {
-            return false;
-        }
-    }
 
     protected int getTickDelay(IBlockState state)
     {
@@ -318,11 +357,6 @@ public abstract class BluLogicBlock extends BlockBase {
     protected abstract IBlockState getPoweredState(IBlockState unpoweredState);
 
     protected abstract IBlockState getUnpoweredState(IBlockState poweredState);
-
-    public boolean isAssociatedBlock(Block other)
-    {
-        return this.isSameDiode(other.getDefaultState());
-    }
 
 
     /* ======================================== FORGE START =====================================*/

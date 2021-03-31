@@ -8,7 +8,7 @@ Blulogic blocks cannot be broken, possible tileentity issue
 All textures need setting up
 Tileentity NBT is not functional (data is lost upon reloading world)
 Generally blustone is very very buggy, but only with redstone and not with itself. May be unfixable due to redstones code
-Possibly could inherit from redstone somehow to fix it
+Possibly could inherit from redstone somehow to fix it (fixed with a workaround, blustone now has a facing direction)
 
 Tileentity persistence may be kept now?
 

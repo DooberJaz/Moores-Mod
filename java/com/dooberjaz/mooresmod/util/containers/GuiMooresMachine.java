@@ -1,5 +1,6 @@
 package com.dooberjaz.mooresmod.util.containers;
 
+import com.dooberjaz.mooresmod.util.Reference;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -11,8 +12,8 @@ public class GuiMooresMachine extends GuiContainer {
     public ContainerMooresMachine container;
     private final String blockName;
 
-    protected int xSize = 1197;
-    protected int ySize = 837;
+    protected int xSize = 256;
+    protected int ySize = 256;
 
     public GuiMooresMachine(
             InventoryPlayer playerInventory,
@@ -28,10 +29,9 @@ public class GuiMooresMachine extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         mc.renderEngine.bindTexture(
-                new ResourceLocation("mooresmod:textures/gui/container/moores_machine.png"));
-
-        int k = width / 2 - xSize / 2;
-        int l = height / 2 - ySize / 2;
+                new ResourceLocation(Reference.MOD_ID + ":textures/gui/containers/moores_machine3.png"));
+        int k = (width - xSize) / 2;
+        int l = (height - ySize) / 2;
         drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
     }
 }

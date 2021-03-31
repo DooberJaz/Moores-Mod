@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 
 import static com.dooberjaz.mooresmod.util.Reference.BIT_SIZE;
 
-public class BluAdderBlock  extends BluLogicBlock {
+public class BluAdderBlock extends BluLogicBlock {
 
     public BluAdderBlock(String name, Material material) {
         super(name, material);

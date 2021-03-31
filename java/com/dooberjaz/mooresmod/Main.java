@@ -24,6 +24,7 @@ public class Main {
     @Instance
     public static Main instance;
 
+
     @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.COMMON_PROXY_CLASS)
     public static CommonProxy proxy;
 
@@ -34,6 +35,7 @@ public class Main {
 
     @Mod.EventHandler
     public static void init(FMLInitializationEvent event){
+
     }
 
     @Mod.EventHandler
@@ -42,3 +44,5 @@ public class Main {
     }
 
 }
+
+

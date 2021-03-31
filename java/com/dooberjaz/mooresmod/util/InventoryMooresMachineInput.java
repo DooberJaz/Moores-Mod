@@ -7,7 +7,7 @@ import net.minecraft.util.text.ITextComponent;
 
 public class InventoryMooresMachineInput implements IInventory
 {
-    private final ItemStack[] stackResult = new ItemStack[81];
+    private final ItemStack[] stackResult = new ItemStack[80];
 
     /**
      * Returns the number of slots in the inventory.

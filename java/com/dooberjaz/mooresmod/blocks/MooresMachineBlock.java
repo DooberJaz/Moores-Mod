@@ -12,12 +12,15 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.Mod;
 
 public class MooresMachineBlock extends BlockBase implements IHasModel{
 
@@ -31,8 +34,10 @@ public class MooresMachineBlock extends BlockBase implements IHasModel{
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-        playerIn.openGui(Reference.MOD_ID, 0, //0 = MooresMachine GUI
+        if(!worldIn.isRemote) {
+            playerIn.openGui(Main.instance, 0, //0 = MooresMachine GUI
                     worldIn, pos.getX(), pos.getY(), pos.getZ());
+        }
         return true;
     }
 
@@ -90,6 +95,5 @@ public class MooresMachineBlock extends BlockBase implements IHasModel{
 
     @Override
     public void registerModels() {
-
     }
 }
