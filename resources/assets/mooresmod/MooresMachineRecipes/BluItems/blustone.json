@@ -1,0 +1,18 @@
+{
+  "type": "mooresmod:shapeless",
+  "result": {
+    "item": "mooresmod:blustone",
+    "count": 1
+  },
+  "ingredients": [
+
+    {
+      "item": "minecraft:redstone"
+    },
+
+    {
+      "item": "minecraft:lapis_lazuli"
+    }
+
+  ]
+}

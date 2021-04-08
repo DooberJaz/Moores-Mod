@@ -1,0 +1,15 @@
+{
+  "type": "mooresmod:shapeless",
+  "result": {
+    "item": "mooresmod:power_generator",
+    "count": 1
+  },
+  "ingredients": [
+    {
+      "item": "mooresmod:blustone"
+    },
+    {
+      "item": "minecraft:redstone_block"
+    }
+  ]
+}

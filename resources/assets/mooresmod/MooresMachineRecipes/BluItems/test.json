@@ -1,0 +1,22 @@
+{
+  "type": "mooresmod:shaped",
+  "result": {
+    "item": "mooresmod:blu_or_gate",
+    "count": 1
+  },
+  "pattern": [
+    "BBBBBBBBB",
+    "B        ",
+    "B        ",
+    "B        ",
+    "B        ",
+    "B        ",
+    "B        ",
+    "B        "
+  ],
+  "key": {
+    "B": {
+      "item": "mooresmod:blustone"
+    }
+  }
+}

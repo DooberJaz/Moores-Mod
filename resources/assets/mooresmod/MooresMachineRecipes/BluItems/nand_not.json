@@ -1,0 +1,18 @@
+{
+  "type": "mooresmod:shapeless",
+  "result": {
+    "item": "mooresmod:blu_nand_gate",
+    "count": 1
+  },
+  "ingredients": [
+
+    {
+      "item": "mooresmod:blu_and_gate"
+    },
+
+    {
+      "item": "mooresmod:blu_not_gate"
+    }
+
+  ]
+}
