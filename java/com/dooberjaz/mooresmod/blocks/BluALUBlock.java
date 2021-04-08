@@ -1,6 +1,7 @@
 package com.dooberjaz.mooresmod.blocks;
 
 import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityAdderBlock;
+import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityBluALUBlock;
 import com.dooberjaz.mooresmod.init.ModBlocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -13,13 +14,14 @@ import javax.annotation.Nonnull;
 
 import static com.dooberjaz.mooresmod.util.Reference.BIT_SIZE;
 
-public class BluAdderBlock extends BluLogicBlock {
+public class BluALUBlock extends BluLogicBlock {
 
-    public BluAdderBlock(String name, Material material) {
+    public BluALUBlock(String name, Material material) {
         super(name, material);
     }
 
     protected int calculateOutput(int input1, int input2){
+        //write alu code
         int temp = input1 + input2;
         if(temp > Math.pow(2, BIT_SIZE)){
             temp = 0;
@@ -29,11 +31,11 @@ public class BluAdderBlock extends BluLogicBlock {
 
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileEntityAdderBlock();
+        return new TileEntityBluALUBlock();
     }
 
-    private TileEntityAdderBlock getTileEntity(World world, BlockPos pos) {
-        return (TileEntityAdderBlock) world.getTileEntity(pos);
+    private TileEntityBluALUBlock getTileEntity(World world, BlockPos pos) {
+        return (TileEntityBluALUBlock) world.getTileEntity(pos);
     }
 
     @Override

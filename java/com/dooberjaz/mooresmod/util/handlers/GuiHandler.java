@@ -1,9 +1,12 @@
 package com.dooberjaz.mooresmod.util.handlers;
 
 import com.dooberjaz.mooresmod.blocks.MooresMachineBlock;
+import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityMooresMachine;
 import com.dooberjaz.mooresmod.util.containers.ContainerMooresMachine;
 import com.dooberjaz.mooresmod.util.containers.GuiMooresMachine;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 

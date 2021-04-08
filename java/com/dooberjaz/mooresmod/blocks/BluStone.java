@@ -52,7 +52,6 @@ public class BluStone extends Block {
     //No matter how long the wire
     //This means that an integer value can be transferred between blocks
     //This integer value (aka power) can be a representation of bits (base redstone has power from 0-15 or 4 bits)
-    public static final int BITS = 4;
     public static final PropertyEnum<BluStone.EnumAttachPosition> NORTH = PropertyEnum.<BluStone.EnumAttachPosition>create("north", BluStone.EnumAttachPosition.class);
     public static final PropertyEnum<BluStone.EnumAttachPosition> EAST = PropertyEnum.<BluStone.EnumAttachPosition>create("east", BluStone.EnumAttachPosition.class);
     public static final PropertyEnum<BluStone.EnumAttachPosition> SOUTH = PropertyEnum.<BluStone.EnumAttachPosition>create("south", BluStone.EnumAttachPosition.class);
@@ -280,6 +279,8 @@ public class BluStone extends Block {
             if (worldIn.getBlockState(pos1) == iblockstate)
             {
                 worldIn.setBlockState(pos1, state, 2);
+                //tile entity issues due to casting as it casts in the native getTileEntity code?
+
                 if (tileEntity instanceof TileEntityBluStone)
                 {
                     TileEntityBluStone tileEnt = (TileEntityBluStone)tileEntity;

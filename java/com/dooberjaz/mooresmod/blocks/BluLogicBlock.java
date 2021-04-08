@@ -51,11 +51,6 @@ public abstract class BluLogicBlock extends Block {
     }
 
     @Override
-    public boolean canConnectRedstone(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
-        return true;
-    }
-
-    @Override
     public boolean hasTileEntity(IBlockState state) {
         return true;
     }
@@ -240,7 +235,7 @@ public abstract class BluLogicBlock extends Block {
         BlockPos blockpos = pos.offset(enumfacing);
         int i = worldIn.getRedstonePower(blockpos, enumfacing);
 
-        if (i >= 15)
+        if (i >= (Math.pow(2, BIT_SIZE) - 1))
         {
             return i;
         }

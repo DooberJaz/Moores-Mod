@@ -1,7 +1,9 @@
 package com.dooberjaz.mooresmod.blocks;
 
 import com.dooberjaz.mooresmod.Main;
+import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityMooresMachine;
 import com.dooberjaz.mooresmod.init.ModBlocks;
+import com.dooberjaz.mooresmod.init.ModItems;
 import com.dooberjaz.mooresmod.proxy.ClientProxy;
 import com.dooberjaz.mooresmod.util.IHasModel;
 import com.dooberjaz.mooresmod.util.Reference;
@@ -15,6 +17,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -22,13 +26,21 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.Mod;
 
-public class MooresMachineBlock extends BlockBase implements IHasModel{
+public class MooresMachineBlock extends Block {
 
+
+    //Why do I have the facing property?
     public static final PropertyDirection FACING = PropertyDirection.create(
             "facing", EnumFacing.Plane.HORIZONTAL);
 
     public MooresMachineBlock(String name, Material material) {
-        super(name, material);
+        super(material);
+        setUnlocalizedName(name);
+        setRegistryName(name);
+        setCreativeTab(CreativeTabs.REDSTONE);
+
+        ModBlocks.BLOCKS.add(this);
+        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(name));
     }
 
     @Override
@@ -40,6 +52,16 @@ public class MooresMachineBlock extends BlockBase implements IHasModel{
         }
         return true;
     }
+
+    /*@Override
+    public TileEntity createTileEntity(World world, IBlockState state) {
+        return new TileEntityMooresMachine();
+    }
+
+    @Override
+    public boolean hasTileEntity(IBlockState state) {
+        return true;
+    }*/
 
     @Override
     public void onBlockAdded(
@@ -93,7 +115,4 @@ public class MooresMachineBlock extends BlockBase implements IHasModel{
         return MooresMachineBlock.getIdFromBlock(ModBlocks.MOORES_MACHINE);
     }
 
-    @Override
-    public void registerModels() {
-    }
 }

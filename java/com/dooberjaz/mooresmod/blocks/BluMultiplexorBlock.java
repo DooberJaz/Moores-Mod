@@ -1,6 +1,7 @@
 package com.dooberjaz.mooresmod.blocks;
 
-import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityAdderBlock;
+import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityBluOrGateBlock;
+import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityMultiplexor;
 import com.dooberjaz.mooresmod.init.ModBlocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -11,36 +12,36 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-import static com.dooberjaz.mooresmod.util.Reference.BIT_SIZE;
+public class BluMultiplexorBlock extends BluLogicBlock{
 
-public class BluAdderBlock extends BluLogicBlock {
-
-    public BluAdderBlock(String name, Material material) {
+    public BluMultiplexorBlock(String name, Material material) {
         super(name, material);
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
-    protected int calculateOutput(int input1, int input2){
-        int temp = input1 + input2;
-        if(temp > Math.pow(2, BIT_SIZE)){
-            temp = 0;
-        }
-        return temp;
+    private TileEntityMultiplexor getTileEntity(World world, BlockPos pos) {
+        return (TileEntityMultiplexor) world.getTileEntity(pos);
     }
 
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileEntityAdderBlock();
+        return new TileEntityMultiplexor();
     }
 
-    private TileEntityAdderBlock getTileEntity(World world, BlockPos pos) {
-        return (TileEntityAdderBlock) world.getTileEntity(pos);
+    protected int calculateOutput(int input1, int input2, int input3){
+        if(input3 > 0)
+            return input2;
+        else {
+            return input1;
+        }
     }
 
     @Override
     protected int calculateInputStrength(@Nonnull World world, BlockPos pos, @Nonnull IBlockState state) {
         int firstInput = getPowerOnSide(world, pos.offset(state.getValue(FACING).rotateY()), state.getValue(FACING).rotateY());
         int secondInput = getPowerOnSide(world, pos.offset(state.getValue(FACING).rotateYCCW()), state.getValue(FACING).rotateYCCW());
-        int x = calculateOutput(firstInput, secondInput);
+        int thirdInput = getPowerOnSide(world, pos.offset(state.getValue(FACING).rotateYCCW().rotateYCCW()), state.getValue(FACING).rotateYCCW().rotateYCCW());
+        int x = calculateOutput(firstInput, secondInput, thirdInput);
         world.setBlockState(pos, state.withProperty(POWER, x));
         this.getTileEntity(world, pos).setOutputSignal(x);
         this.getTileEntity(world, pos).markDirty();
@@ -50,12 +51,13 @@ public class BluAdderBlock extends BluLogicBlock {
     @Override
     protected IBlockState getPoweredState(IBlockState unpoweredState) {
         EnumFacing enumfacing = (EnumFacing)unpoweredState.getValue(FACING);
-        return ModBlocks.BLU_AND_GATE.getDefaultState().withProperty(FACING, enumfacing);
+        return ModBlocks.AND_GATE.getDefaultState().withProperty(FACING, enumfacing);
     }
 
     @Override
     protected IBlockState getUnpoweredState(IBlockState poweredState) {
         EnumFacing enumfacing = (EnumFacing)poweredState.getValue(FACING);
-        return ModBlocks.BLU_AND_GATE.getDefaultState().withProperty(FACING, enumfacing);
+        return ModBlocks.AND_GATE.getDefaultState().withProperty(FACING, enumfacing);
     }
 }
+

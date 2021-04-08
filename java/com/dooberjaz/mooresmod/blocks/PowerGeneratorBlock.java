@@ -29,7 +29,7 @@ public class PowerGeneratorBlock extends BlockBase implements IHasModel {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
-        state = state.withProperty(POWER,  (state.getValue(POWER) + 1) % (int) (Math.pow(2, BIT_SIZE) - 1));
+        state = state.withProperty(POWER,  (state.getValue(POWER) + 1) % (int) (Math.pow(2, BIT_SIZE)));
         worldIn.setBlockState(pos, state);
         return true;
     }

@@ -1,24 +1,27 @@
 package com.dooberjaz.mooresmod.util.containers;
 
-import com.dooberjaz.mooresmod.util.handlers.MooresMachineRecipeHandler;
+import com.dooberjaz.mooresmod.blocks.MooresMachineBlock;
+import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityMooresMachine;
+import com.dooberjaz.mooresmod.util.InventoryMooresMachineInput;
+import com.dooberjaz.mooresmod.util.recipe.InventoryMooresCrafting;
+import com.dooberjaz.mooresmod.util.recipe.MooresModRecipeManager;
+import net.minecraft.block.BlockRedstoneWire;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class ContainerMooresMachine extends Container
 {
-
-    public InventoryCrafting craftMatrix = new InventoryCrafting(this, 9, 9);
+    //public InventoryCrafting craftMatrix = new InventoryCrafting(this, 9, 9);
+   // public InventoryCrafting craftResult = new InventoryCrafting(this, 1, 1);
+    public InventoryMooresMachineInput craftMatrix = new InventoryMooresMachineInput(this, 9, 9);
     public InventoryCraftResult craftResult = new InventoryCraftResult();
 
-    public MooresMachineRecipeHandler mooresModRecipeHandler;
-    private final World world;
-    private final EntityPlayer player;
+    private  World world;
+    private  EntityPlayer player;
     public InventoryPlayer playerInventory;
-    public String resultString = "deconstructing.result.ready";
     public int x = 0;
     public int y = 0;
     public int z = 0;
@@ -32,17 +35,20 @@ public class ContainerMooresMachine extends Container
         this.world = worldIn;
         this.player = playerInventoryIn.player;
 
+        //this.inventoryItemStacks.add(ItemStack.EMPTY);
+
+        MooresModRecipeManager.init();
+
         playerInventory = playerInventoryIn;
 
-        MooresMachineRecipeHandler mooresMachineRecipeHandler = new MooresMachineRecipeHandler();
-
         //creation of input slots (9x9)
-        for(int ix = 0; ix < 9; ++ix)
+        //Switched x and y because I have a theory its causing a bug, I was right
+        for(int iy = 0; iy < 9; ++iy)
         {
-            for(int iy = 0; iy < 9; ++iy)
+            for(int ix = 0; ix < 9; ++ix)
             {
-                addSlotToContainer(new Slot(craftMatrix, iy +
-                        ix * 3,  (int)Math.round(ix * 16.5) - 24,
+                addSlotToContainer(new Slot(craftMatrix, ix +
+                        (iy * 9),  (int)Math.round(ix * 16.5) - 24,
                         (int)Math.round(iy * 16.5) - 27));
             }
         }
@@ -69,7 +75,7 @@ public class ContainerMooresMachine extends Container
     @Override
     public void onCraftMatrixChanged(IInventory inventoryIn)
     {
-        this.slotChangedCraftingGrid(this.world, this.player, this.craftMatrix, this.craftResult);
+        craftResult.setInventorySlotContents(0, MooresModRecipeManager.getCraftingResult(craftMatrix, world));
     }
 
     /**
@@ -79,11 +85,6 @@ public class ContainerMooresMachine extends Container
     public void onContainerClosed(EntityPlayer playerIn)
     {
         super.onContainerClosed(playerIn);
-
-        if (!this.world.isRemote)
-        {
-            this.clearContainer(playerIn, this.world, this.craftMatrix);
-        }
     }
 
     /**

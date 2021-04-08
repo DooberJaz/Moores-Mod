@@ -1,6 +1,6 @@
 package com.dooberjaz.mooresmod.blocks;
 
-import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntityAdderBlock;
+import com.dooberjaz.mooresmod.blocks.tileEntities.TileEntitySubtractorBlock;
 import com.dooberjaz.mooresmod.init.ModBlocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -11,17 +11,15 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-import static com.dooberjaz.mooresmod.util.Reference.BIT_SIZE;
+public class BluSubtractorBlock extends BluLogicBlock {
 
-public class BluAdderBlock extends BluLogicBlock {
-
-    public BluAdderBlock(String name, Material material) {
+    public BluSubtractorBlock(String name, Material material) {
         super(name, material);
     }
 
     protected int calculateOutput(int input1, int input2){
-        int temp = input1 + input2;
-        if(temp > Math.pow(2, BIT_SIZE)){
+        int temp = input1 - input2;
+        if(temp < 0 ){
             temp = 0;
         }
         return temp;
@@ -29,11 +27,11 @@ public class BluAdderBlock extends BluLogicBlock {
 
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileEntityAdderBlock();
+        return new TileEntitySubtractorBlock();
     }
 
-    private TileEntityAdderBlock getTileEntity(World world, BlockPos pos) {
-        return (TileEntityAdderBlock) world.getTileEntity(pos);
+    private TileEntitySubtractorBlock getTileEntity(World world, BlockPos pos) {
+        return (TileEntitySubtractorBlock) world.getTileEntity(pos);
     }
 
     @Override

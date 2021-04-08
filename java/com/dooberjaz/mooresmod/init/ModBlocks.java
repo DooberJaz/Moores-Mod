@@ -33,5 +33,6 @@ public class ModBlocks{
 
     public static final Block POWER_GENERATOR= new PowerGeneratorBlock("power_generator", Material.ROCK);
     public static final Block BLU_ADDER = new BluAdderBlock("blu_adder", Material.ROCK);
-
+    public static final Block BLU_SUBTRACTOR = new BluSubtractorBlock("blu_subtractor", Material.ROCK);
+    public static final Block BLU_MULTIPLEXOR = new BluMultiplexorBlock("blu_multiplexor", Material.ROCK);
 }

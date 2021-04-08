@@ -53,6 +53,11 @@ public class RegistryHandler {
         GameRegistry.registerTileEntity(TileEntityBluNotGateBlock.class, new ResourceLocation("mooresmod", ":models/block/not_gate.json"));
         GameRegistry.registerTileEntity(TileEntityBluAndGateBlock.class, new ResourceLocation("mooresmod", ":models/block/and_gate.json"));
         GameRegistry.registerTileEntity(TileEntityBluStone.class, new ResourceLocation("mooresmod", ":models/block/blustone.json"));
+        GameRegistry.registerTileEntity(TileEntityAdderBlock.class, new ResourceLocation("mooresmod", ":models/block/adder.json"));
+        GameRegistry.registerTileEntity(TileEntitySubtractorBlock.class, new ResourceLocation("mooresmod", ":models/block/subtractor.json"));
+        GameRegistry.registerTileEntity(TileEntityMooresMachine.class, new ResourceLocation("mooresmod", ":models/block/moores_machine.json"));
+        GameRegistry.registerTileEntity(TileEntityMultiplexor.class, new ResourceLocation("mooresmod", ":models/block/multiplexor.json"));
     }
+
 
 }
