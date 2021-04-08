@@ -1,19 +1,7 @@
 {
   "forge_marker" : 1,
-  "defaults": {"model": "mooresmod:and_gate"},
+  "defaults": {"model": "mooresmod:subtractor"},
   "variants": {
-    "facing": {
-      "south": {
-        "y": 180
-      },
-      "north": {},
-      "east": {
-        "y": 90
-      },
-      "west": {
-        "y": 270
-      }
-    },
     "power": {
       "0": {},
       "1": {},
@@ -79,6 +67,18 @@
       "61": {},
       "62": {},
       "63": {}
+    },
+    "facing": {
+      "south": {
+        "y": 180
+      },
+      "north": {},
+      "east": {
+        "y": 90
+      },
+      "west": {
+        "y": 270
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "forge_marker" : 1,
-  "defaults": {"model": "mooresmod:and_gate"},
+  "defaults": {"model": "mooresmod:adder"},
   "variants": {
     "facing": {
       "south": {
