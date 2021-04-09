@@ -1,0 +1,11 @@
+ {
+  "parent": "block/orientable",
+   "textures": {
+       "north": "mooresmod:blocks/out_side",
+       "west": "mooresmod:blocks/in_side",
+       "east": "mooresmod:blocks/in_side",
+       "south": "mooresmod:blocks/ctl_side",
+       "down": "mooresmod:blocks/counter",
+       "up": "mooresmod:blocks/counter"
+   }
+ }
