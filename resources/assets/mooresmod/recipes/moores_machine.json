@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+
+  "pattern":
+  [
+    "BPB",
+    "BCB",
+    "BBB"
+  ],
+
+  "key":
+  {
+    "B":
+    {
+      "item": "mooresmod:blustone"
+    },
+    "C":
+    {
+      "item": "minecraft:crafting_table"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    }
+  },
+
+  "result":
+  {
+    "item": "mooresmod:moores_machine",
+    "count": 1
+  }
+}

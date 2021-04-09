@@ -1,0 +1,6 @@
+{
+  "recipes" : {
+    "moores_shapeless" : "dooberjaz.mooresmod.util.recipe.MooresModRecipeManager.init()",
+    "moores_shaped" : "dooberjaz.mooresmod.util.recipe.MooresShapelessRecipe$Factory"
+  }
+}
