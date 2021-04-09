@@ -1,18 +1,27 @@
 {
-  "type": "mooresmod:shapeless",
+  "type": "mooresmod:shaped",
   "result": {
     "item": "mooresmod:blustone",
-    "count": 1
+    "count": 2
   },
-  "ingredients": [
-
-    {
+  "pattern": [
+    "XN       ",
+    "         ",
+    "         ",
+    "         ",
+    "         ",
+    "         ",
+    "         ",
+    "         ",
+    "         "
+  ],
+  "key": {
+    "N": {
       "item": "minecraft:redstone"
     },
-
-    {
-      "item": "minecraft:lapis_lazuli"
+    "X": {
+      "item": "minecraft:dye",
+      "data": 4
     }
-
-  ]
+  }
 }

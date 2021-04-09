@@ -1,0 +1,41 @@
+{
+  "type": "mooresmod:shaped",
+  "result": {
+    "item": "mooresmod:blu_ALU",
+    "count": 1
+  },
+  "pattern": [
+    "BBABB    ",
+    "B   XBBB ",
+    "BBSBB  B ",
+    "GB    GXB",
+    "GB     B ",
+    "BBMBB  B ",
+    "B   XBBB ",
+    "BBDBB    ",
+    "         "
+  ],
+  "key": {
+    "B": {
+      "item": "mooresmod:blustone"
+    },
+    "G": {
+      "item": "mooresmod:power_generator"
+    },
+    "M": {
+      "item": "mooresmod:product"
+    },
+    "S": {
+      "item": "mooresmod:subtractor"
+    },
+    "A": {
+      "item": "mooresmod:adder"
+    },
+    "D": {
+      "item": "mooresmod:division"
+    },
+    "X": {
+      "item": "mooresmod:blu_multiplexor"
+    }
+  }
+}

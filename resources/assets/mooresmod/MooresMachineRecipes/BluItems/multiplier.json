@@ -1,0 +1,32 @@
+{
+  "type": "mooresmod:shaped",
+  "result": {
+    "item": "mooresmod:product",
+    "count": 1
+  },
+  "pattern": [
+    "GBBBBB   ",
+    " B B ABB ",
+    " B BBB B ",
+    " B     B ",
+    " BBBBBBCB",
+    "       B ",
+    "       G ",
+    "         ",
+    "         "
+  ],
+  "key": {
+    "B": {
+      "item": "mooresmod:blustone"
+    },
+    "A": {
+      "item": "mooresmod:adder"
+    },
+    "C": {
+      "item": "mooresmod:counter"
+    },
+    "G": {
+      "item": "mooresmod:power_generator"
+    }
+  }
+}

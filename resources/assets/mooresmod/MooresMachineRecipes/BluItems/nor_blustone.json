@@ -1,13 +1,13 @@
 {
   "type": "mooresmod:shaped",
   "result": {
-    "item": "mooresmod:power_generator",
+    "item": "mooresmod:blu_nand_gate",
     "count": 1
   },
   "pattern": [
-    "BBB      ",
-    "BBB      ",
-    "BBB      ",
+    "GBBB     ",
+    "   BBRBBB",
+    "GBBB     ",
     "         ",
     "         ",
     "         ",
@@ -18,6 +18,12 @@
   "key": {
     "B": {
       "item": "mooresmod:blustone"
+    },
+    "G": {
+      "item": "mooresmod:power_generator"
+    },
+    "R": {
+      "item": "minecraft:redstone_torch"
     }
   }
 }

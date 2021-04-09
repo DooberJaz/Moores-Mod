@@ -5,9 +5,9 @@
     "count": 1
   },
   "pattern": [
-    "BBB      ",
-    "BBB      ",
-    "BBB      ",
+    "NNNN     ",
+    "NNN      ",
+    "NNN      ",
     "         ",
     "         ",
     "         ",
@@ -16,7 +16,7 @@
     "         "
   ],
   "key": {
-    "B": {
+    "N": {
       "item": "mooresmod:blustone"
     }
   }

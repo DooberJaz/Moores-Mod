@@ -1,11 +1,11 @@
 {
   "type": "mooresmod:shaped",
   "result": {
-    "item": "mooresmod:blu_or_gate",
-    "count": 1
+    "item": "mooresmod:blustone",
+    "count": 2
   },
   "pattern": [
-    "XN       ",
+    "NX       ",
     "         ",
     "         ",
     "         ",
@@ -17,10 +17,11 @@
   ],
   "key": {
     "N": {
-      "item": "mooresmod:blu_not_gate"
+      "item": "minecraft:redstone"
     },
     "X": {
-      "item": "mooresmod:blu_nor_gate"
+      "item": "minecraft:dye",
+      "data": 4
     }
   }
 }

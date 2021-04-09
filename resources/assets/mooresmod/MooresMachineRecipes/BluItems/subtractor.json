@@ -1,13 +1,13 @@
 {
   "type": "mooresmod:shaped",
   "result": {
-    "item": "mooresmod:power_generator",
+    "item": "mooresmod:subtractor",
     "count": 1
   },
   "pattern": [
-    "BBB      ",
-    "BBB      ",
-    "BBB      ",
+    "AN       ",
+    "         ",
+    "         ",
     "         ",
     "         ",
     "         ",
@@ -16,8 +16,11 @@
     "         "
   ],
   "key": {
-    "B": {
-      "item": "mooresmod:blustone"
+    "N": {
+      "item": "mooresmod:blu_not_gate"
+    },
+    "A": {
+      "item": "mooresmod:adder"
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "type": "mooresmod:shaped",
   "result": {
-    "item": "mooresmod:blu_adder",
+    "item": "mooresmod:adder",
     "count": 1
   },
   "pattern": [
@@ -11,6 +11,7 @@
     "B B      ",
     "B NBBBBBB",
     "BBB      ",
+    "         ",
     "         ",
     "         "
   ],

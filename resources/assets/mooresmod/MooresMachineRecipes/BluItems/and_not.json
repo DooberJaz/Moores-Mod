@@ -1,19 +1,26 @@
 {
-  "type": "mooresmod:shapeless",
-  "ingredients": [
-
-    {
-      "item": "mooresmod:blu_nand_gate"
-    },
-
-    {
-      "item": "mooresmod:blu_not_gate"
-    }
-
-  ],
-
+  "type": "mooresmod:shaped",
   "result": {
     "item": "mooresmod:blu_and_gate",
     "count": 1
+  },
+  "pattern": [
+    "XN       ",
+    "         ",
+    "         ",
+    "         ",
+    "         ",
+    "         ",
+    "         ",
+    "         ",
+    "         "
+  ],
+  "key": {
+    "N": {
+      "item": "mooresmod:blu_not_gate"
+    },
+    "X": {
+      "item": "mooresmod:blu_nand_gate"
+    }
   }
 }
