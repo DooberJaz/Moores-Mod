@@ -32,7 +32,11 @@ public class ModBlocks{
     public static final Block BLU_NOT_GATE = new BluNotGateBlock("blu_not_gate", Material.ROCK);
 
     public static final Block POWER_GENERATOR= new PowerGeneratorBlock("power_generator", Material.ROCK);
-    public static final Block BLU_ADDER = new BluAdderBlock("blu_adder", Material.ROCK);
-    public static final Block BLU_SUBTRACTOR = new BluSubtractorBlock("blu_subtractor", Material.ROCK);
+    public static final Block BLU_ADDER = new BluAdderBlock("adder", Material.ROCK);
+    public static final Block BLU_SUBTRACTOR = new BluSubtractorBlock("subtractor", Material.ROCK);
     public static final Block BLU_MULTIPLEXOR = new BluMultiplexorBlock("blu_multiplexor", Material.ROCK);
+    public static final Block BLU_PRODUCT = new BluAdderBlock("product", Material.ROCK);
+    public static final Block BLU_DIVISION = new BluSubtractorBlock("division", Material.ROCK);
+    public static final Block BLU_ALU = new BluALUBlock("blu_ALU", Material.ROCK);
+    public static final Block COUNTER = new CounterBlock("counter", Material.ROCK);
 }

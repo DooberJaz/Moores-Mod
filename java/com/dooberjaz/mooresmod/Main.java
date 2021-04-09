@@ -7,15 +7,19 @@ import com.dooberjaz.mooresmod.proxy.ClientProxy;
 import com.dooberjaz.mooresmod.proxy.CommonProxy;
 import com.dooberjaz.mooresmod.util.Reference;
 import com.dooberjaz.mooresmod.util.handlers.GuiHandler;
+import com.dooberjaz.mooresmod.util.recipe.MooresModRecipeManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -43,6 +47,10 @@ public class Main {
 
     }
 
+    /*@SubscribeEvent
+    public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        MooresModRecipeManager.init();
+    }*/
 }
 
 

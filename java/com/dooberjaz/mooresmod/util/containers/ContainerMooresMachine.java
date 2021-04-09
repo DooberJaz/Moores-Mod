@@ -35,9 +35,9 @@ public class ContainerMooresMachine extends Container
         this.world = worldIn;
         this.player = playerInventoryIn.player;
 
-        //this.inventoryItemStacks.add(ItemStack.EMPTY);
-
         MooresModRecipeManager.init();
+
+        //this.inventoryItemStacks.add(ItemStack.EMPTY);
 
         playerInventory = playerInventoryIn;
 

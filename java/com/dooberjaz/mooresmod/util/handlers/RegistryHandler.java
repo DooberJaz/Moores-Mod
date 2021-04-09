@@ -44,6 +44,7 @@ public class RegistryHandler {
 
     public static void registerTileEntities()
     {
+        //Since each block has a seperate texture, they all need seperate tileentities even though each tile entiity is the same
         GameRegistry.registerTileEntity(TileEntityLogicBlock.class, new ResourceLocation("mooresmod", ":models/block/nand_gate.json"));
         GameRegistry.registerTileEntity(TileEntityBluXnorGateBlock.class, new ResourceLocation("mooresmod", ":models/block/xnor_gate.json"));
         GameRegistry.registerTileEntity(TileEntityBluXorGateBlock.class, new ResourceLocation("mooresmod", ":models/block/xor_gate.json"));
@@ -56,7 +57,11 @@ public class RegistryHandler {
         GameRegistry.registerTileEntity(TileEntityAdderBlock.class, new ResourceLocation("mooresmod", ":models/block/adder.json"));
         GameRegistry.registerTileEntity(TileEntitySubtractorBlock.class, new ResourceLocation("mooresmod", ":models/block/subtractor.json"));
         GameRegistry.registerTileEntity(TileEntityMooresMachine.class, new ResourceLocation("mooresmod", ":models/block/moores_machine.json"));
-        GameRegistry.registerTileEntity(TileEntityMultiplexor.class, new ResourceLocation("mooresmod", ":models/block/multiplexor.json"));
+        GameRegistry.registerTileEntity(TileEntityMultiplexor.class, new ResourceLocation("mooresmod", ":models/block/blu_multiplexor.json"));
+        GameRegistry.registerTileEntity(TileEntityProductBlock.class, new ResourceLocation("mooresmod", ":models/block/product.json"));
+        GameRegistry.registerTileEntity(TileEntityDivisionBlock.class, new ResourceLocation("mooresmod", ":models/block/division.json"));
+        GameRegistry.registerTileEntity(TileEntityBluALUBlock.class, new ResourceLocation("mooresmod", ":models/block/blu_alu.json"));
+        GameRegistry.registerTileEntity(TileEntityCounterBlock.class, new ResourceLocation("mooresmod", ":models/block/counter.json"));
     }
 
 

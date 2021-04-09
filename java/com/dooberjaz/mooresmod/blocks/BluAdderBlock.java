@@ -50,12 +50,12 @@ public class BluAdderBlock extends BluLogicBlock {
     @Override
     protected IBlockState getPoweredState(IBlockState unpoweredState) {
         EnumFacing enumfacing = (EnumFacing)unpoweredState.getValue(FACING);
-        return ModBlocks.BLU_AND_GATE.getDefaultState().withProperty(FACING, enumfacing);
+        return this.getDefaultState().withProperty(FACING, enumfacing);
     }
 
     @Override
     protected IBlockState getUnpoweredState(IBlockState poweredState) {
         EnumFacing enumfacing = (EnumFacing)poweredState.getValue(FACING);
-        return ModBlocks.BLU_AND_GATE.getDefaultState().withProperty(FACING, enumfacing);
+        return this.getDefaultState().withProperty(FACING, enumfacing);
     }
 }
