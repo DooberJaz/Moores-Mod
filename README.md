@@ -20,3 +20,13 @@ For the full experience, download the modpack at this link *link pending* as it 
 **CPUs** - The final goal of this mod is to have a 1 block CPU within minecraft, though multiple setbacks have impacted this. Additionally, explaining a CPU within the bounds of the game would be a huge challenge. However, one day I'd still like to try.
 
 **Bug fixes** - I still have quite a few bugs, which sucks. Fixing these is a priority currently. Please let me know if you find any bugs.
+
+**Code Documentation** - Yeah I'm just putting this off for now :p
+
+## Explanation of Whats in This Repo
+
+**Java** - The java code for the mod. Contains all the code for blocks, crafting etc. Not yet properly documented.
+
+**Resources** - Textures and texture assignment files, as well as any crafting recipes. Mostly in Json format so have fun with that!
+
+**.jar file** - Hopefully a downloadable file that will allow you to run my mod? Otherwise just get it at [this link](https://www.curseforge.com/minecraft/mc-mods/mooresmod), or get the modpack at this link *link pending*
