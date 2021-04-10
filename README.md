@@ -30,3 +30,5 @@ For the full experience, download the modpack at this link *link pending* as it 
 **Resources** - Textures and texture assignment files, as well as any crafting recipes. Mostly in Json format so have fun with that!
 
 **.jar file** - Hopefully a downloadable file that will allow you to run my mod? Otherwise just get it at [this link](https://www.curseforge.com/minecraft/mc-mods/mooresmod), or get the modpack at this link *link pending*
+
+**.zip file** - The Modpack file created by CurseForge. Importing this zip into your own curseforge client will let you launch and play my mod exactly as I intended! (Additionally it is the most up to date file, I may have missed some bug fixes in this github repo)
