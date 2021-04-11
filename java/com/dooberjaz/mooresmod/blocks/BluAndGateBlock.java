@@ -37,7 +37,8 @@ public class BluAndGateBlock extends BluLogicBlock {
         int firstInput = getPowerOnSide(world, pos.offset(state.getValue(FACING).rotateY()), state.getValue(FACING).rotateY());
         int secondInput = getPowerOnSide(world, pos.offset(state.getValue(FACING).rotateYCCW()), state.getValue(FACING).rotateYCCW());
         int x = calculateOutput(firstInput, secondInput);
-        world.setBlockState(pos, state.withProperty(POWER, x));
+        state = state.withProperty(POWER, x).withProperty(FACING, state.getValue(FACING));
+        world.setBlockState(pos, state);
         this.getTileEntity(world, pos).setOutputSignal(x);
         this.getTileEntity(world, pos).markDirty();
         return x;
@@ -46,12 +47,14 @@ public class BluAndGateBlock extends BluLogicBlock {
     @Override
     protected IBlockState getPoweredState(IBlockState unpoweredState) {
         EnumFacing enumfacing = (EnumFacing)unpoweredState.getValue(FACING);
-        return ModBlocks.BLU_AND_GATE.getDefaultState().withProperty(FACING, enumfacing);
+        int power = unpoweredState.getValue(POWER);
+        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWER, power);
     }
 
     @Override
     protected IBlockState getUnpoweredState(IBlockState poweredState) {
         EnumFacing enumfacing = (EnumFacing)poweredState.getValue(FACING);
-        return ModBlocks.BLU_AND_GATE.getDefaultState().withProperty(FACING, enumfacing);
+        int power = poweredState.getValue(POWER);
+        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWER, power);
     }
 }

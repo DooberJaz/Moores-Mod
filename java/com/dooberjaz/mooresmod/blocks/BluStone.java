@@ -434,7 +434,11 @@ public class BluStone extends Block {
     private boolean isConnectedToSource(Block block){
         if ((block == ModBlocks.BLU_AND_GATE) || (block == ModBlocks.BLU_OR_GATE) || (block == ModBlocks.BLU_NOR_GATE)
                 || (block == ModBlocks.BLU_XOR_GATE) || (block == ModBlocks.BLU_XNOR_GATE)
-                || (block == ModBlocks.BLU_NAND_GATE) || (block == ModBlocks.BLU_NOT_GATE)) {
+                || (block == ModBlocks.BLU_NAND_GATE) || (block == ModBlocks.BLU_NOT_GATE)
+                || (block == ModBlocks.BLU_ADDER) || (block == ModBlocks.BLU_SUBTRACTOR)
+                || (block == ModBlocks.BLU_PRODUCT) || (block == ModBlocks.BLU_DIVISION)
+                || (block == ModBlocks.BLU_ALU) || (block == ModBlocks.BLU_MULTIPLEXOR)
+                || (block == ModBlocks.COUNTER)) {
             return true;
         } else {
             return false;

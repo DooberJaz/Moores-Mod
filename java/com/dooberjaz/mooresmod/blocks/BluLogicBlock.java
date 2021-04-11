@@ -67,7 +67,7 @@ public abstract class BluLogicBlock extends Block {
         //Copy this and put it in every single logic block with a changed tileentity type
         TileEntityBluLogicBlock tileEntity = (TileEntityBluLogicBlock)world.getTileEntity(pos);
         try{
-            return state.withProperty(POWER, tileEntity.getOutputSignal());
+            return state.withProperty(POWER, tileEntity.getOutputSignal()).withProperty(FACING, state.getValue(FACING));
         } catch(NullPointerException e){
             return state;
         }
@@ -199,22 +199,13 @@ public abstract class BluLogicBlock extends Block {
 
     On for now because it might not be the cause of a lot of bugs and also entirely not needed
     */
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
             boolean flag = this.shouldBePowered(worldIn, pos, state);
 
-            if (state.getValue(POWER) > 0 && !flag)
-            {
-                worldIn.setBlockState(pos, this.getUnpoweredState(state), 2);
-            }
-            else if (state.getValue(POWER) == 0)
-            {
-                worldIn.setBlockState(pos, this.getPoweredState(state), 2);
-
-                if (!flag)
-                {
+            if (!flag) {
                     worldIn.updateBlockTick(pos, this.getPoweredState(state).getBlock(), this.getTickDelay(state), -1);
-                }
             }
     }
 

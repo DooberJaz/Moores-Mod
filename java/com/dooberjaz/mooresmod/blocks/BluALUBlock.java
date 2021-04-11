@@ -35,12 +35,14 @@ public class BluALUBlock extends BluLogicBlock {
         }
         else if(opCode == 4){
             //assumke this is divide
-            temp = input1 / input2;
+            if(input2 > 0) {
+                temp = input1 / input2;
+            } else return 0;
         } else {
             //there has been an error
             temp = 0;
         }
-        if(temp > (int) Math.pow(2, BIT_SIZE)){
+        if(temp >= (int) Math.pow(2, BIT_SIZE)){
             //overflow
             temp = 0;
         } else if(temp < 0){
@@ -79,12 +81,14 @@ public class BluALUBlock extends BluLogicBlock {
     @Override
     protected IBlockState getPoweredState(IBlockState unpoweredState) {
         EnumFacing enumfacing = (EnumFacing)unpoweredState.getValue(FACING);
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        int power = unpoweredState.getValue(POWER);
+        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWER, power);
     }
 
     @Override
     protected IBlockState getUnpoweredState(IBlockState poweredState) {
         EnumFacing enumfacing = (EnumFacing)poweredState.getValue(FACING);
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        int power = poweredState.getValue(POWER);
+        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWER, power);
     }
 }

@@ -46,13 +46,15 @@ public class BluOrGateBlock extends BluLogicBlock{
     @Override
     protected IBlockState getPoweredState(IBlockState unpoweredState) {
         EnumFacing enumfacing = (EnumFacing)unpoweredState.getValue(FACING);
-        return ModBlocks.AND_GATE.getDefaultState().withProperty(FACING, enumfacing);
+        int power = unpoweredState.getValue(POWER);
+        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWER, power);
     }
 
     @Override
     protected IBlockState getUnpoweredState(IBlockState poweredState) {
         EnumFacing enumfacing = (EnumFacing)poweredState.getValue(FACING);
-        return ModBlocks.AND_GATE.getDefaultState().withProperty(FACING, enumfacing);
+        int power = poweredState.getValue(POWER);
+        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWER, power);
     }
 }
 

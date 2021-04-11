@@ -115,7 +115,7 @@ public abstract class LogicBlock extends BlockRedstoneDiode implements ITileEnti
 
     @Override
     protected boolean shouldBePowered(World worldIn, BlockPos pos, IBlockState state) {
-        return calculateInputStrength(worldIn, pos, state) > 15;
+        return calculateInputStrength(worldIn, pos, state) > 0;
     }
 
     @Override
@@ -203,7 +203,7 @@ public abstract class LogicBlock extends BlockRedstoneDiode implements ITileEnti
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(POWERED, Boolean.valueOf(false));
+        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(POWERED, Boolean.valueOf(false));
     }
 
     @SideOnly(Side.CLIENT)
@@ -213,9 +213,7 @@ public abstract class LogicBlock extends BlockRedstoneDiode implements ITileEnti
         return true;
     }
 
-    protected boolean calculateOutput(boolean input1, boolean input2) {
-        return false;
-    }
+    protected abstract boolean calculateOutput(boolean input1, boolean input2);
 
     @Override
     public int getMetaFromState(IBlockState state) {

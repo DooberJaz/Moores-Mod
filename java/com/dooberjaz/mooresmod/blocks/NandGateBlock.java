@@ -21,7 +21,7 @@ public class NandGateBlock  extends LogicBlock{
     {
         Boolean powered = unpoweredState.getValue(POWERED);
         EnumFacing enumfacing = (EnumFacing)unpoweredState.getValue(FACING);
-        return ModBlocks.NAND_GATE.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, powered);
+        return ModBlocks.NAND_GATE.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, !powered);
     }
 
     @Override
@@ -29,6 +29,6 @@ public class NandGateBlock  extends LogicBlock{
     {
         Boolean powered = poweredState.getValue(POWERED);
         EnumFacing enumfacing = (EnumFacing)poweredState.getValue(FACING);
-        return ModBlocks.NAND_GATE.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, powered);
+        return ModBlocks.NAND_GATE.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWERED, !powered);
     }
 }

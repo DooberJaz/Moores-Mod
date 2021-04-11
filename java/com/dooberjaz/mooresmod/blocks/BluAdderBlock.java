@@ -21,7 +21,7 @@ public class BluAdderBlock extends BluLogicBlock {
 
     protected int calculateOutput(int input1, int input2){
         int temp = input1 + input2;
-        if(temp > Math.pow(2, BIT_SIZE)){
+        if(temp > Math.pow(2, BIT_SIZE) - 1){
             temp = 0;
         }
         return temp;
@@ -50,12 +50,14 @@ public class BluAdderBlock extends BluLogicBlock {
     @Override
     protected IBlockState getPoweredState(IBlockState unpoweredState) {
         EnumFacing enumfacing = (EnumFacing)unpoweredState.getValue(FACING);
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        int power = unpoweredState.getValue(POWER);
+        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWER, power);
     }
 
     @Override
     protected IBlockState getUnpoweredState(IBlockState poweredState) {
         EnumFacing enumfacing = (EnumFacing)poweredState.getValue(FACING);
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        int power = poweredState.getValue(POWER);
+        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWER, power);
     }
 }

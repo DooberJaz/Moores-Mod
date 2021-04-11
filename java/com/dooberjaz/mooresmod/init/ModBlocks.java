@@ -16,7 +16,7 @@ public class ModBlocks{
     public static final Block AND_GATE = new AndGateBlock("and_gate", Material.ROCK);
     public static final Block XOR_GATE = new XorGateBlock("xor_gate", Material.ROCK);
     public static final Block OR_GATE = new OrGateBlock("or_gate", Material.ROCK);
-    public static final Block NOT_GATE = new BlockBase("not_gate", Material.ROCK);
+    public static final Block NOT_GATE = new NotGateBlock("not_gate", Material.ROCK);
     public static final Block NAND_GATE = new NandGateBlock("nand_gate", Material.ROCK);
     public static final Block NOR_GATE = new NorGateBlock("nor_gate", Material.ROCK);
 
@@ -35,8 +35,8 @@ public class ModBlocks{
     public static final Block BLU_ADDER = new BluAdderBlock("adder", Material.ROCK);
     public static final Block BLU_SUBTRACTOR = new BluSubtractorBlock("subtractor", Material.ROCK);
     public static final Block BLU_MULTIPLEXOR = new BluMultiplexorBlock("blu_multiplexor", Material.ROCK);
-    public static final Block BLU_PRODUCT = new BluAdderBlock("product", Material.ROCK);
-    public static final Block BLU_DIVISION = new BluSubtractorBlock("division", Material.ROCK);
+    public static final Block BLU_PRODUCT = new BluProductBlock("product", Material.ROCK);
+    public static final Block BLU_DIVISION = new BluDivisionBlock("division", Material.ROCK);
     public static final Block BLU_ALU = new BluALUBlock("blu_ALU", Material.ROCK);
     public static final Block COUNTER = new CounterBlock("counter", Material.ROCK);
 }

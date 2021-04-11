@@ -38,7 +38,7 @@ public class BluSubtractorBlock extends BluLogicBlock {
     protected int calculateInputStrength(@Nonnull World world, BlockPos pos, @Nonnull IBlockState state) {
         int firstInput = getPowerOnSide(world, pos.offset(state.getValue(FACING).rotateY()), state.getValue(FACING).rotateY());
         int secondInput = getPowerOnSide(world, pos.offset(state.getValue(FACING).rotateYCCW()), state.getValue(FACING).rotateYCCW());
-        int x = calculateOutput(firstInput, secondInput);
+        int x = calculateOutput(secondInput, firstInput);
         world.setBlockState(pos, state.withProperty(POWER, x));
         this.getTileEntity(world, pos).setOutputSignal(x);
         this.getTileEntity(world, pos).markDirty();
@@ -48,12 +48,14 @@ public class BluSubtractorBlock extends BluLogicBlock {
     @Override
     protected IBlockState getPoweredState(IBlockState unpoweredState) {
         EnumFacing enumfacing = (EnumFacing)unpoweredState.getValue(FACING);
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        int power = unpoweredState.getValue(POWER);
+        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWER, power);
     }
 
     @Override
     protected IBlockState getUnpoweredState(IBlockState poweredState) {
         EnumFacing enumfacing = (EnumFacing)poweredState.getValue(FACING);
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        int power = poweredState.getValue(POWER);
+        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWER, power);
     }
 }

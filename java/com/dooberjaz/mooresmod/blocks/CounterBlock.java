@@ -25,7 +25,7 @@ public class CounterBlock extends BluLogicBlock {
         if (control == 0) {
             //assume its being used for division and will output the count not the result
             if(input2 > 0) {
-                while (input1 - input2 > -1) {
+                if (input1 - input2 > -1) {
                     temp++;
                     input1 -= input2;
                 }
@@ -36,9 +36,7 @@ public class CounterBlock extends BluLogicBlock {
         } else {
             //assume its being used for multiplication so output the mltiplication of 1 and 2
             if(input2 > 0) {
-                for (int i = 1; i <= input2; i++) {
-                    temp += input1;
-                }
+                temp += input1;
             } else {
                 return 0;
             }
@@ -70,12 +68,14 @@ public class CounterBlock extends BluLogicBlock {
     @Override
     protected IBlockState getPoweredState(IBlockState unpoweredState) {
         EnumFacing enumfacing = (EnumFacing)unpoweredState.getValue(FACING);
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        int power = unpoweredState.getValue(POWER);
+        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWER, power);
     }
 
     @Override
     protected IBlockState getUnpoweredState(IBlockState poweredState) {
         EnumFacing enumfacing = (EnumFacing)poweredState.getValue(FACING);
-        return this.getDefaultState().withProperty(FACING, enumfacing);
+        int power = poweredState.getValue(POWER);
+        return this.getDefaultState().withProperty(FACING, enumfacing).withProperty(POWER, power);
     }
 }
