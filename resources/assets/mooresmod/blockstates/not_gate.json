@@ -1,5 +1,12 @@
 {
   "variants": {
-    "normal": { "model": "mooresmod:not_gate" }
+    "facing=south,powered=false": { "model": "mooresmod:not_gate" },
+    "facing=north,powered=false": { "model": "mooresmod:not_gate", "y": 180},
+    "facing=east,powered=false": { "model": "mooresmod:not_gate", "y": 90},
+    "facing=west,powered=false": { "model": "mooresmod:not_gate", "y": 270 },
+    "facing=south,powered=true": { "model": "mooresmod:not_gate" },
+    "facing=north,powered=true": { "model": "mooresmod:not_gate", "y": 180},
+    "facing=east,powered=true": { "model": "mooresmod:not_gate", "y": 90},
+    "facing=west,powered=true": { "model": "mooresmod:not_gate", "y": 270 }
   }
 }

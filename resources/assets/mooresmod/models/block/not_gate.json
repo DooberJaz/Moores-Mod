@@ -1,6 +1,11 @@
 {
   "parent": "block/orientable",
   "textures": {
-    "all": "mooresmod:blocks/not_gate"
+    "north": "mooresmod:blocks/out_side",
+    "west": "mooresmod:blocks/not_gate",
+    "east": "mooresmod:blocks/not_gate",
+    "south": "mooresmod:blocks/in_side",
+    "down": "mooresmod:blocks/not_gate",
+    "up": "mooresmod:blocks/not_gate"
   }
 }
