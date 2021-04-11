@@ -38,6 +38,7 @@ For the full experience, download the modpack at this link *link pending* as it 
 Step 1: Have the CurseForge Client installed (link: https://curseforge.overwolf.com/)
 
 Step 2: Open the client and select the game "minecraft"
+
 Step 3: Download the zip file from this repo
 
 Step 4: Click "create custom profile", it should be in the top right(ish)
