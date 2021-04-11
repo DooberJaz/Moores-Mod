@@ -5,9 +5,9 @@
     "count": 1
   },
   "pattern": [
-    "BBB BBB  ",
-    "G NBB NBB",
-    "BBB BBB  ",
+    "GBB BBB  ",
+    "  NBB NBB",
+    "GBB BBB  ",
     "         ",
     "         ",
     "         ",

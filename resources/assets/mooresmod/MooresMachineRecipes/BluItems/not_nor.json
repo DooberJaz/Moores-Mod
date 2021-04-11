@@ -1,7 +1,7 @@
 {
   "type": "mooresmod:shaped",
   "result": {
-    "item": "mooresmod:blu_and_gate",
+    "item": "mooresmod:blu_not_gate",
     "count": 1
   },
   "pattern": [

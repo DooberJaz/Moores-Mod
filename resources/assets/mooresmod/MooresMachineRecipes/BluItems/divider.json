@@ -5,22 +5,28 @@
     "count": 1
   },
   "pattern": [
-    "AN       ",
-    "         ",
-    "         ",
-    "         ",
-    "         ",
-    "         ",
-    "         ",
+    "GBBBBB   ",
+    " B B SBB ",
+    " B BBB B ",
+    " B     B ",
+    " BBBBBBCB",
+    "       B ",
+    "       G ",
     "         ",
     "         "
   ],
   "key": {
-    "N": {
-      "item": "mooresmod:blu_not_gate"
+    "G": {
+      "item": "mooresmod:power_generator"
     },
-    "A": {
-      "item": "mooresmod:product"
+    "B": {
+      "item": "mooresmod:blustone"
+    },
+    "S": {
+      "item": "mooresmod:subtractor"
+    },
+    "C": {
+      "item": "mooresmod:counter"
     }
   }
 }

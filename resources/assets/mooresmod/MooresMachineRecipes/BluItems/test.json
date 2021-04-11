@@ -1,19 +1,19 @@
 {
   "type": "mooresmod:shaped",
   "result": {
-    "item": "mooresmod:blu_or_gate",
+    "item": "mooresmod:counter",
     "count": 1
   },
   "pattern": [
     "BBBBBBBBB",
-    "B        ",
-    "B        ",
-    "B        ",
-    "B        ",
-    "B        ",
-    "B        ",
-    "B        ",
-    "B        "
+    "B       B",
+    "B       B",
+    "B       B",
+    "B       B",
+    "B       B",
+    "B       B",
+    "B       B",
+    "BBBBBBBBB"
   ],
   "key": {
     "B": {

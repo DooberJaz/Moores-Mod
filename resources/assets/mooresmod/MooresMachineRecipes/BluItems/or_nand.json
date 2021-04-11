@@ -5,14 +5,14 @@
     "count": 1
   },
   "pattern": [
-    " BBB     ",
-    "GB NBB   ",
-    " BBB B   ",
+    "BBBB     ",
+    "G  NBB   ",
+    "BBBB B   ",
     "     NBBB",
-    "     B   ",
-    " BBB B   ",
-    "GB NBB   ",
-    " BBB     ",
+    "BBBB B   ",
+    "G  NBB   ",
+    "BBBB     ",
+    "         ",
     "         "
   ],
   "key": {
