@@ -203,7 +203,7 @@ public abstract class LogicBlock extends BlockRedstoneDiode implements ITileEnti
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing()).withProperty(POWERED, Boolean.valueOf(false));
+        return this.getDefaultState().withProperty(POWERED, Boolean.valueOf(false));
     }
 
     @SideOnly(Side.CLIENT)
