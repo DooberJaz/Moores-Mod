@@ -1,0 +1,29 @@
+{
+  "type": "mooresmod:shaped",
+  "result": {
+    "item": "mooresmod:blu_and_gate",
+    "count": 1
+  },
+  "pattern": [
+    "BBBB     ",
+    "G  NBB   ",
+    "BBBB B   ",
+    "     NBBB",
+    "BBBB B   ",
+    "G  NBB   ",
+    "BBBB     ",
+    "         ",
+    "         "
+  ],
+  "key": {
+    "B": {
+      "item": "mooresmod:blustone"
+    },
+    "G": {
+      "item": "mooresmod:power_generator"
+    },
+    "N": {
+      "item": "mooresmod:blu_nor_gate"
+    }
+  }
+}
