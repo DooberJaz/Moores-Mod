@@ -21,8 +21,6 @@ For the full experience, download the modpack at this link *link pending* as it 
 
 **Bug fixes** - I still have quite a few bugs, which sucks. Fixing these is a priority currently. Please let me know if you find any bugs.
 
-**Code Documentation** - Yeah I'm just putting this off for now :p
-
 ## Explanation of Whats in This Repo
 
 **Java** - The java code for the mod. Contains all the code for blocks, crafting etc. Not yet properly documented.
