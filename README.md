@@ -55,4 +55,6 @@ Step 8: Create a new minecraft world and enjoy! The default key for opening the 
 
 Step 9: (Optional) Download the PDF file from here to be your recipe guide. It is recommended that you use it, but if you want the challenge then feel free to not!
 
-You can play in creative or survival, your choice!
+You can play in creative or survival, your choice! If you just want to quickly test the mod, I suggest playing in creative.
+
+Also, if you want to help me with my dissertation, please fill out this survey https://forms.gle/ghrCQLfLV3tHYfsAA
