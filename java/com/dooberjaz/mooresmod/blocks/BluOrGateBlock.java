@@ -14,6 +14,10 @@ import javax.annotation.Nonnull;
 
 public class BluOrGateBlock extends BluLogicBlock{
 
+    //Look, Im not gonna document every extension of logic block or blulogic block. They all work the
+    //Same way, except for calculateOutput, which performs the operation of the block (AND does &&, NOR does NOT and ||, etc.)
+    //Things like adders also work the same way
+
     public BluOrGateBlock(String name, Material material) {
         super(name, material);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));

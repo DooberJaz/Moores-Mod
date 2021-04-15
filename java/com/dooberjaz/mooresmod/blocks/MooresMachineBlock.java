@@ -33,16 +33,23 @@ public class MooresMachineBlock extends Block {
     public static final PropertyDirection FACING = PropertyDirection.create(
             "facing", EnumFacing.Plane.HORIZONTAL);
 
+    //constructor
     public MooresMachineBlock(String name, Material material) {
         super(material);
+        //Sets the name used by the code and for loading the mod
         setUnlocalizedName(name);
         setRegistryName(name);
+
+        //Places it in the redstone tab for spawning in items in creative mode
         setCreativeTab(CreativeTabs.REDSTONE);
 
+        //Add it to the list of blocks in the mod
         ModBlocks.BLOCKS.add(this);
+        //Add it's item-block into the list of items (needed for crafting and such)
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(name));
     }
 
+    //Open the Moores Machine GUI when the block is activated (right clicked)
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
@@ -53,7 +60,9 @@ public class MooresMachineBlock extends Block {
         return true;
     }
 
-    /*@Override
+    /* NOT NEEDED CODE
+
+    @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
         return new TileEntityMooresMachine();
     }
@@ -63,6 +72,7 @@ public class MooresMachineBlock extends Block {
         return true;
     }*/
 
+    //Called when the block is placed
     @Override
     public void onBlockAdded(
             World worldIn,

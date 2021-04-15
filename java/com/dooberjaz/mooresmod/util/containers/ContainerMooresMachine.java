@@ -14,8 +14,7 @@ import net.minecraft.world.World;
 
 public class ContainerMooresMachine extends Container
 {
-    //public InventoryCrafting craftMatrix = new InventoryCrafting(this, 9, 9);
-   // public InventoryCrafting craftResult = new InventoryCrafting(this, 1, 1);
+    //Creates the input and output for the container
     public InventoryMooresMachineInput craftMatrix = new InventoryMooresMachineInput(this, 9, 9);
     public InventoryCraftResult craftResult = new InventoryCraftResult();
 
@@ -35,14 +34,12 @@ public class ContainerMooresMachine extends Container
         this.world = worldIn;
         this.player = playerInventoryIn.player;
 
+        //Starts the recipes. This is definitely not in the right place, but it broke in other places
         MooresModRecipeManager.init();
-
-        //this.inventoryItemStacks.add(ItemStack.EMPTY);
 
         playerInventory = playerInventoryIn;
 
-        //creation of input slots (9x9)
-        //Switched x and y because I have a theory its causing a bug, I was right
+        //creation of input slots (9x9) on the screen
         for(int iy = 0; iy < 9; ++iy)
         {
             for(int ix = 0; ix < 9; ++ix)
@@ -53,10 +50,10 @@ public class ContainerMooresMachine extends Container
             }
         }
 
-        //creation of output slot (1)
+        //creation of output slot (1) on the screen
         addSlotToContainer(new Slot(craftResult, 0,  190, 38));
 
-        //creation of player inv slots
+        //creation of player inv slots on the screen
         for (int k = 0; k < 3; ++k)
         {
             for (int i1 = 0; i1 < 9; ++i1)
@@ -65,7 +62,7 @@ public class ContainerMooresMachine extends Container
             }
         }
 
-        //creation of player hotbar slots
+        //creation of player hotbar slots on the screen
         for (int l = 0; l < 9; ++l)
         {
             this.addSlotToContainer(new Slot(playerInventory, l, (int)Math.round(l * 16.5)-24, 189));

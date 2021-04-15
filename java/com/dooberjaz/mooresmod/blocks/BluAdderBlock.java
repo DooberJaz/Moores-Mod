@@ -15,6 +15,10 @@ import static com.dooberjaz.mooresmod.util.Reference.BIT_SIZE;
 
 public class BluAdderBlock extends BluLogicBlock {
 
+    //Look, Im not gonna document every extension of logic block or blulogic block. They all work the
+    //Same way, except for calculateOutput, which performs the operation of the block (AND does &&, NOR does NOT and ||, etc.)
+    //Things like adders also work the same way
+
     public BluAdderBlock(String name, Material material) {
         super(name, material);
     }

@@ -4,6 +4,10 @@ import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Function;
 
+//So this is some code I borrowed from another mod (codechickenlib) that I couldnt get working in tandem with this for development.
+//It is used mostly for parsing of the moores machine json files
+
+
 /**
  * Created by covers1624 on 3/27/2016.
  */

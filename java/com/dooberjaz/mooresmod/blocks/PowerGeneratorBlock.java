@@ -27,6 +27,7 @@ public class PowerGeneratorBlock extends BlockBase implements IHasModel {
     }
 
     @Override
+    //When this block is activated (right clicked), increase its "power" value by 1, unless it is over the cap (16), in which case make it 0
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
         state = state.withProperty(POWER,  (state.getValue(POWER) + 1) % (int) (Math.pow(2, BIT_SIZE)));

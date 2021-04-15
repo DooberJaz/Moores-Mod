@@ -8,9 +8,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
+//Base tile entity class, but I will explain them all here
 public class TileEntityBluLogicBlock extends TileEntity {
+    //Output signal is the power value stored in the tile entity
     private int outputSignal;
 
+    //Writes the data into the tileenttiy data
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
@@ -18,6 +21,7 @@ public class TileEntityBluLogicBlock extends TileEntity {
         return compound;
     }
 
+    //Reads the tileentity data into the block
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);

@@ -18,6 +18,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @Mod.EventBusSubscriber
 public class RegistryHandler {
 
+    //This handles all the registering that is done at the beginning of the game (on start up)
+
     @SubscribeEvent
     public static void onItemRegister(RegistryEvent.Register<Item> event){
         event.getRegistry().registerAll(ModItems.ITEMS.toArray(new Item[0]));

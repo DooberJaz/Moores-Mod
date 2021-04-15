@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModBlocks{
+    //This class inits a list of every block, then adds every block to it
     public static final List<Block> BLOCKS = new ArrayList<Block>();
 
     public static final Block AND_GATE = new AndGateBlock("and_gate", Material.ROCK);

@@ -8,6 +8,8 @@ import java.lang.reflect.Modifier;
 import org.objectweb.asm.Type;
 
 public class ReflectionManager {
+    //So this is some code I borrowed from another mod (codechickenlib) that I couldnt get working in tandem with this for development.
+//It is used mostly for parsing of the moores machine json files
     private static Field modifiersField;
 
     public ReflectionManager() {

@@ -7,7 +7,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
 public class ItemBase extends Item implements IHasModel{
-
+    //Base (unused) item class, but needed if I ever make an item that cant be placed as a block
     public ItemBase(String name){
         setUnlocalizedName(name);
         setRegistryName(name);

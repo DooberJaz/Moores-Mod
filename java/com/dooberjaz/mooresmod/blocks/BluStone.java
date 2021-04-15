@@ -45,6 +45,8 @@ import static com.dooberjaz.mooresmod.util.Reference.CONST_FACING;
 import static com.dooberjaz.mooresmod.util.Reference.CONST_POWER;
 
 public class BluStone extends Block {
+    //This is basically the same as the redstone code with a few changes
+
     //Id love to extend redstone wire so that this works perfectly with redstone, but the
     //PropertyEnum is private and it causes lots of issues upon block registration
     //So this is redstone wire in every way, except the power value doesn't decay with each block placed
@@ -58,11 +60,8 @@ public class BluStone extends Block {
     public static final PropertyEnum<BluStone.EnumAttachPosition> WEST = PropertyEnum.<BluStone.EnumAttachPosition>create("west", BluStone.EnumAttachPosition.class);
     public static final PropertyInteger POWER = CONST_POWER;
 
-    //Backuped version reloaded tor eset a lot of changes due to whole startegy change
-    //Blustone now will have a facing value and will only update the blustone it is facing towards
-    //Maybe also check if another blustone's facing is towards it to make absolute sure no
-    //Infinite loops occur?
-
+    //Facing is the biggest difference between this and redstone, and is needed to allow no power decay while also avoiding
+    //Infinite loops
     public static final PropertyDirection FACING = CONST_FACING;
 
     protected static final AxisAlignedBB[] REDSTONE_WIRE_AABB = new AxisAlignedBB[] {new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.8125D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.8125D, 0.0625D, 1.0D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 1.0D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 1.0D, 0.0625D, 1.0D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.1875D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 0.8125D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D)};

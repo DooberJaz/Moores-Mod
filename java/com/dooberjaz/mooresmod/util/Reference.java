@@ -5,6 +5,7 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.util.EnumFacing;
 
 public class Reference {
+    //Useful final variables that are used all over the place!
     public static final String MOD_ID = "mooresmod";
     public static final String NAME = "Moores Mod";
     public static final String VERSION = "1.1";

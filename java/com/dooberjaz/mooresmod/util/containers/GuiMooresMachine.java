@@ -11,6 +11,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class GuiMooresMachine extends GuiContainer {
+
+    //Loads the actual GUI of the moores machine
     public ContainerMooresMachine container;
     private final String blockName;
 

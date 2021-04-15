@@ -7,5 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModItems {
+    //WHile this seems empty, every block in the game with an item is also added to this list
     public static final List<Item> ITEMS = new ArrayList<Item>();
 }

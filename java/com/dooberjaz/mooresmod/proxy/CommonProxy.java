@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 
 public class CommonProxy {
+    //Base proxy class
     public void registerItemRenderer(Item itemBase, int meta, String id) {
         ModelLoader.setCustomModelResourceLocation(itemBase, meta, new ModelResourceLocation(itemBase.getRegistryName(), id));
     }

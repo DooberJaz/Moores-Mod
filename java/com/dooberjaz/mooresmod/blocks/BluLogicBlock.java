@@ -34,33 +34,45 @@ import static com.dooberjaz.mooresmod.util.Reference.*;
 
 public abstract class BluLogicBlock extends Block {
 
+    //Facing value for the block, needed for blustone calculations, synced with CONST_FACING so it works with other blocks that use facing
     public static final PropertyDirection FACING = CONST_FACING;
+    //Power value, synced with CONST_POWER so it works with other blocks (and is more convenient for coding changes)
     public static final PropertyInteger POWER = CONST_POWER;
+    //Bounding box for the block (1x1x1)
     protected static final AxisAlignedBB LOGIC_BLOCK_BB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
 
+    //Constuctor
     public BluLogicBlock(String name, Material material) {
         super(material);
+        //Sets the name used by the code and for loading the mod
         setUnlocalizedName(name);
         setRegistryName(name);
+
+        //Places it in the redstone tab for spawning in items in creative mode
         setCreativeTab(CreativeTabs.REDSTONE);
 
+        //Add it to the list of blocks in the mod
         ModBlocks.BLOCKS.add(this);
+        //Add it's item-block into the list of items (needed for crafting and such)
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(name));
 
+        //default state is needed for placement
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWER, 0));
     }
 
+    //Returns true as this block always has a tileentity
     @Override
     public boolean hasTileEntity(IBlockState state) {
         return true;
     }
 
+    //Returns the bounding box
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return LOGIC_BLOCK_BB;
     }
 
-
+    //Used by forge to get the state of the block (used in many places)
     @Override
     public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos)
     {
@@ -73,23 +85,28 @@ public abstract class BluLogicBlock extends Block {
         }
     }
 
+    //Creates a tile entity of the same type as this block
     @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
         return new TileEntityBluLogicBlock();
     }
 
+    //Code for when a block of this type is added to the world
     @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)
     {
+        //Adds a tile entity to the position this block is at
         worldIn.setTileEntity(pos, this.createTileEntity(worldIn, state));
         super.onBlockAdded(worldIn, pos, state);
     }
 
+    //Creates the blockstate values needed for this block (facing and power)
     @Override
     protected BlockStateContainer createBlockState() {
        return new BlockStateContainer(this, new IProperty[] {FACING, POWER});
     }
 
+    //Used when loading the block from the world data
     @Override
     public IBlockState getStateFromMeta(int meta) {
         int directionInt = meta;
@@ -105,6 +122,7 @@ public abstract class BluLogicBlock extends Block {
         }
     }
 
+    //Used when saving the blocks data in the world data (if the block is unloaded this stores its state)
     @Override
     public int getMetaFromState(IBlockState state) {
         if (state.getValue(FACING) == EnumFacing.NORTH) {
@@ -118,6 +136,7 @@ public abstract class BluLogicBlock extends Block {
         }
     }
 
+    //Called when the block is destroyed by the player
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
     {
         if (state.getValue(POWER) > 0)
@@ -135,6 +154,7 @@ public abstract class BluLogicBlock extends Block {
         super.onBlockDestroyedByPlayer(worldIn, pos, state);
     }
 
+    //called by the world when the block needs an update (usually redstone based)
     protected void updateState(World worldIn, BlockPos pos, IBlockState state) {
 
         boolean flag = this.shouldBePowered(worldIn, pos, state);
@@ -150,7 +170,7 @@ public abstract class BluLogicBlock extends Block {
         }
     }
 
-    //Make this work
+    //Called whena  neighboring block's state changes (usually for redstone/blustone stuff)
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
         if (this.canBlockStay(worldIn, pos))
@@ -169,36 +189,33 @@ public abstract class BluLogicBlock extends Block {
         }
     }
 
+    //Decides how long the block waits in between updates (0 is instant, but 1 gives the game a little break for larger builds)
     protected int getDelay(IBlockState state) {
         return 1;
     }
 
+    //I mean... This is logical
     @Override
     public boolean isNormalCube(IBlockState state, IBlockAccess world, BlockPos pos)
     {
         return true;
     }
 
-
+    //This block can only be placed on top of a solid block (like redstone)
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
         IBlockState downState = worldIn.getBlockState(pos.down());
         return (downState.isTopSolid() || downState.getBlockFaceShape(worldIn, pos.down(), EnumFacing.UP) == BlockFaceShape.SOLID) ? super.canPlaceBlockAt(worldIn, pos) : false;
     }
 
+    //If the block below this stops being solid, the block is destroyed and dropped
     public boolean canBlockStay(World worldIn, BlockPos pos)
     {
         IBlockState downState = worldIn.getBlockState(pos.down());
         return downState.isTopSolid() || downState.getBlockFaceShape(worldIn, pos.down(), EnumFacing.UP) == BlockFaceShape.SOLID;
     }
 
-    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
-    {
-    }
-    /*
-
-    On for now because it might not be the cause of a lot of bugs and also entirely not needed
-    */
+    //Another method needed for block updates
     @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
@@ -209,17 +226,20 @@ public abstract class BluLogicBlock extends Block {
             }
     }
 
+    //To save from bugs, I just have it return true. Technically fancy maths can be used and would save processing
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
     {
         return true;
     }
 
+    //Intermediary function used by block updating
     protected boolean shouldBePowered(World worldIn, BlockPos pos, IBlockState state)
     {
         return this.calculateInputStrength(worldIn, pos, state) > 0;
     }
 
+    //This function returns the output strength this block obtains, but doesnt here as it is overriden by the inheriting block types
     protected int calculateInputStrength(World worldIn, BlockPos pos, IBlockState state)
     {
         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
@@ -237,6 +257,7 @@ public abstract class BluLogicBlock extends Block {
         }
     }
 
+    //Unused, but it gets mad sometimes if not here
     protected int getPowerOnSides(IBlockAccess worldIn, BlockPos pos, IBlockState state)
     {
         EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
@@ -245,6 +266,7 @@ public abstract class BluLogicBlock extends Block {
         return Math.max(this.getPowerOnSide(worldIn, pos.offset(enumfacing1), enumfacing1), this.getPowerOnSide(worldIn, pos.offset(enumfacing2), enumfacing2));
     }
 
+    //Returns the power on a specific side of the block
     protected int getPowerOnSide(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
     {
         IBlockState iblockstate = worldIn.getBlockState(pos);
@@ -256,6 +278,7 @@ public abstract class BluLogicBlock extends Block {
             {
                 return 15;
             } else if (block == ModBlocks.BLUSTONE) {
+                //Needed to make blustone work
                 return (Integer) iblockstate.getValue(BluStone.POWER);
             } else {
                 return (block == Blocks.REDSTONE_WIRE) ? (Integer) iblockstate.getValue(BlockRedstoneWire.POWER) : worldIn.getStrongPower(pos, side);
@@ -285,19 +308,8 @@ public abstract class BluLogicBlock extends Block {
         }
     }
 
-    protected void notifyNeighbors(World worldIn, BlockPos pos, IBlockState state)
-    {
-        EnumFacing enumfacing = (EnumFacing) state.getValue(FACING);
-        EnumFacing input1 = (EnumFacing) state.getValue(FACING).rotateY();
-        EnumFacing input2 = (EnumFacing) state.getValue(FACING).rotateYCCW();
-        BlockPos blockpos = pos.offset(enumfacing.getOpposite());
-        if (net.minecraftforge.event.ForgeEventFactory.onNeighborNotify(worldIn, pos, worldIn.getBlockState(pos), java.util.EnumSet.of(input1.getOpposite(), input2.getOpposite()), false).isCanceled())
-            return;
-        worldIn.neighborChanged(blockpos, this, pos);
-        worldIn.notifyNeighborsOfStateChange(blockpos, this, false);
-    }
-
     @Override
+    //Called when the block is broken, and also removes the tile entity
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
         if(worldIn.getTileEntity(pos) != null) {
@@ -369,9 +381,13 @@ public abstract class BluLogicBlock extends Block {
         return BlockFaceShape.SOLID;
     }
 
+
+    //Function I made to make NOT gates work outside of twos complement (as I dont use it currently)
     public int nonComplementNot(int beforeNot){
         int afterNot = 0;
+        //Loops through the bits using clever power maths
         for(int i = BIT_SIZE-1; i >= 0; i--){
+            //If there is a 1 present in that bit slot (i), remove its value. Otherwise add it
             if(((double)beforeNot)/Math.pow(2, i) > 1.0){
                 beforeNot -= i;
             } else {

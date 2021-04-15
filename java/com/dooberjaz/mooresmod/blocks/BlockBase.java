@@ -12,6 +12,7 @@ import net.minecraft.item.ItemBlock;
 
 public class BlockBase extends Block {
 
+    //Just the basic level block, with nothing special
     public BlockBase(String name, Material material){
         super(material);
         setUnlocalizedName(name);

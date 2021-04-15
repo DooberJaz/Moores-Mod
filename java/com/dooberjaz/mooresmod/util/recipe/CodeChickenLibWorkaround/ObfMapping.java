@@ -20,7 +20,8 @@ import javax.annotation.Nonnull;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.fml.common.asm.transformers.deobf.FMLDeobfuscatingRemapper;
 import org.objectweb.asm.commons.Remapper;
-
+//So this is some code I borrowed from another mod (codechickenlib) that I couldnt get working in tandem with this for development.
+//It is used mostly for parsing of the moores machine json files
 public class ObfMapping {
     public static ObfMapping.ObfRemapper obfMapper = new ObfMapping.ObfRemapper();
     public static Remapper mcpMapper = null;
