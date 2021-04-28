@@ -1,7 +1,33 @@
 # Moores-Mod
 A Minecraft mod that allows for the creation of various computer components accurate to real life from the logic gate level. Part of my 4th year Masters Dissertation.
 
-For the full experience, download the modpack at this link *link pending* as it has better questing implemented, allowing for a much easier learning experience and better use of the mod.
+For the full experience, download the modpack at this link https://www.curseforge.com/minecraft/modpacks/mooresmod-pack as it has better questing implemented, allowing for a much easier learning experience and better use of the mod.
+
+## Running the Modpack
+
+Step 1: Have the CurseForge Client installed (link: https://curseforge.overwolf.com/)
+
+Step 2: Open the client and select the game "minecraft"
+
+Step 3: Download the zip file from this repo
+
+Step 4: Click "create custom profile", it should be in the top right(ish)
+
+Step 5: Click "import" on the line that says "or import a previously created profile"
+
+Step 6: Navigate though the file browser to the zip file you downloaded, and select it
+
+Step 6: It will likely download some neccesary files, let that happen (shouldnt be more than a few MB)
+
+Step 7: Click on the new mod profile and click play
+
+Step 8: Create a new minecraft world and enjoy! The default key for opening the quests menu is the ¬ key (to the left of the 1/! key), but feel free to rebind it
+
+Step 9: (Optional) Download the PDF file from here to be your recipe guide. It is recommended that you use it, but if you want the challenge then feel free to not!
+
+You can play in creative or survival, your choice! If you just want to quickly test the mod, I suggest playing in creative.
+
+Also, if you want to help me with my dissertation, please fill out this survey https://forms.gle/ghrCQLfLV3tHYfsAA
 
 ## Current Work Done
 
@@ -32,29 +58,3 @@ For the full experience, download the modpack at this link *link pending* as it 
 **.zip file** - The Modpack file created by CurseForge. Instructions on using it below (Additionally it is the most up to date file, I may have missed some bug fixes in this github repo)
 
 **.pdf file** - The highly requested (as in, by every single tester so far) recipe guide. Use this PDF (with pictures!) as a guide for all the crafting recipes! If a recipe doesn't work or seems inconsistent, drop me a message! There's a lot so it isnt surprising for some to go wrong when I do bug fixing. I truly suggest you use this file though. It makes things so much easier!
-
-## Running the Modpack
-
-Step 1: Have the CurseForge Client installed (link: https://curseforge.overwolf.com/)
-
-Step 2: Open the client and select the game "minecraft"
-
-Step 3: Download the zip file from this repo
-
-Step 4: Click "create custom profile", it should be in the top right(ish)
-
-Step 5: Click "import" on the line that says "or import a previously created profile"
-
-Step 6: Navigate though the file browser to the zip file you downloaded, and select it
-
-Step 6: It will likely download some neccesary files, let that happen (shouldnt be more than a few MB)
-
-Step 7: Click on the new mod profile and click play
-
-Step 8: Create a new minecraft world and enjoy! The default key for opening the quests menu is the ¬ key (to the left of the 1/! key), but feel free to rebind it
-
-Step 9: (Optional) Download the PDF file from here to be your recipe guide. It is recommended that you use it, but if you want the challenge then feel free to not!
-
-You can play in creative or survival, your choice! If you just want to quickly test the mod, I suggest playing in creative.
-
-Also, if you want to help me with my dissertation, please fill out this survey https://forms.gle/ghrCQLfLV3tHYfsAA
